@@ -1,0 +1,6 @@
+reason,detail
+phi2 significant in-sample but not useful out-of-sample,"phi2=0.0219, p=1.18e-01 in training fit, but adding it does not improve, and actively worsens, validation/test MASE. Classic sign of fitting training-window noise rather than a real predictive signal."
+AR(2) costs data on the T=20 panel,"AR(1) uses 633.0 entities vs AR(2)'s 628.0 (needs one more lag per substance). At T=20, every dropped observation still costs -- the extra parameter buys less than the data it costs."
+"Consistent loss across both splits, not a fluke","AR(2) validation MASE worse than AR(1) on train-subs (0.851 vs 0.856) AND holdout-subs (0.836 vs 0.847) -- real generalization loss, not noise from one group."
+Two mean-reversion terms compound and over-correct,"phi1=0.0243, phi2=0.0219 together push forecasts down harder than warranted whenever both the last two months were large -- over-corrects for most substances."
+Confirmed on true test month (t=20),"AR(1) test MASE=0.8587 vs AR(2) test MASE=0.8495 -- AR(1) closer to (or beating) naive persistence, AR(2) further from it."

@@ -1,0 +1,24 @@
+Panel: 14843 rows, 792 substances, T=20
+
+======================================================================
+MODEL F -- shared-weight LSTM, input [y_t-2, y_t-1] -> y_t
+======================================================================
+Train sequences: 9348, validation (t=19) sequences: 791
+  epoch   0  train_mse=7.4196  val_mse(t=19)=6.9968
+  epoch  50  train_mse=0.5125  val_mse(t=19)=0.5191
+  epoch 100  train_mse=0.3753  val_mse(t=19)=0.3846
+  epoch 150  train_mse=0.3671  val_mse(t=19)=0.3781
+  epoch 200  train_mse=0.3641  val_mse(t=19)=0.3746
+  epoch 250  train_mse=0.3619  val_mse(t=19)=0.3715
+  epoch 299  train_mse=0.3604  val_mse(t=19)=0.3689
+Best validation (t=19) MSE (log scale): 0.3689
+
+Model F (LSTM) test (t=20): {'n': 791, 'rmse_log': 0.6256144927545263, 'rmse_count': 36.262524724057414, 'mae_count': 9.803786819864312, 'mae_naive': 8.711757269279394, 'mase': 1.1253512370501626, 'mean_signed_err': -4.7843695080235085, 'total_pred': 38173.56640625, 'total_actual': 41958.0}  oos_r2=0.9305
+Model A (AR1) test (t=20): {'n': 791, 'rmse_log': 0.6481475824810484, 'rmse_count': 15.893412213550983, 'mae_count': 7.480502761490559, 'mae_naive': 8.711757269279394, 'mase': 0.8586674915598653, 'mean_signed_err': -1.6353410259706922, 'total_pred': 40664.44524845718, 'total_actual': 41958.0}  oos_r2=0.9866
+Model D (AB-GMM) test (t=20): {'n': 791, 'rmse_log': 0.6569589789813728, 'rmse_count': 16.25301818280819, 'mae_count': 7.640405039269591, 'mae_naive': 8.711757269279394, 'mase': 0.877022258897438, 'mean_signed_err': -1.7631220227242366, 'total_pred': 40563.37048002513, 'total_actual': 41958.0}  oos_r2=0.9860
+
+Saved -> Forecasted results/model_lstm_comparison.csv
+
+Saved -> Forecasted results/model_lstm/model_lstm_test_t8.csv (791 rows)
+
+Saved -> Forecasted results/model_lstm/model_lstm_forecast_t9.csv (792 rows)

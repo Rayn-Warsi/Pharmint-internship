@@ -1,0 +1,17 @@
+Panel: 14843 rows, 792 substances, T=20
+
+======================================================================
+MIXED MODEL -- per-substance best-of(D AB-GMM, C PPML)
+======================================================================
+Routing (t=19 validation): 379 substances -> D, 412 substances -> C
+Saved -> Forecasted results/mixed_dc/mixed_dc_routing.csv
+
+Model D (AB-GMM) test (t=20): {'n': 791, 'rmse_log': 0.6569589789813728, 'rmse_count': 16.25301818280819, 'mae_count': 7.640405039269591, 'mae_naive': 8.711757269279394, 'mase': 0.877022258897438, 'mean_signed_err': -1.7631220227242381, 'total_pred': 40563.37048002513, 'total_actual': 41958.0}  oos_r2=0.9860
+Model C (PPML) test (t=20): {'n': 791, 'rmse_log': 0.6689566193336792, 'rmse_count': 15.58150725020984, 'mae_count': 7.463144678340618, 'mae_naive': 8.711757269279394, 'mase': 0.8566750022590957, 'mean_signed_err': -0.3544691109303649, 'total_pred': 41677.61493325408, 'total_actual': 41958.0}  oos_r2=0.9872
+Mixed (D/C) test (t=20): {'n': 791, 'rmse_log': 0.6436017911663079, 'rmse_count': 15.549486117954828, 'mae_count': 7.386160891228151, 'mae_naive': 8.711757269279394, 'mase': 0.8478382331971365, 'mean_signed_err': -0.8341922509066765, 'total_pred': 41298.153929532826, 'total_actual': 41958.0}  oos_r2=0.9872
+
+Saved -> Forecasted results/mixed_dc_comparison.csv
+
+Saved -> Forecasted results/mixed_dc/mixed_dc_test_t8.csv (791 rows)
+
+Saved -> Forecasted results/mixed_dc/mixed_dc_forecast_t9.csv (792 rows)

@@ -1,0 +1,17 @@
+# Secrets — never commit
+atlas-credentials.env
+
+# Generated / dependency directories
+.venv/
+dashboard/node_modules/
+
+# Large archives (duplicated data already present elsewhere)
+Data/Data1.zip
+dashboard/.zip
+
+# Editor / IDE
+.idea/
+
+# dashboard/ is its own separate git repo, pushed independently
+# to github.com/Rayn-Warsi/Pharma-Export-Demand-Forecasting
+dashboard/

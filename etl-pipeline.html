@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PharmInt ETL Pipeline</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  :root {
+    --paper: #faf9f6;
+    --ink: #1f2225;
+    --muted: #5c5f63;
+    --rule: #e3e0d8;
+    --accent: #3b5ba5;   /* flow */
+    --teal: #2f7d6e;     /* outputs */
+    --amber: #a9762a;    /* filters / caveats */
+    --code-bg: #f2f0ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #16181b; --ink: #e6e4df; --muted: #9a9da2; --rule: #2b2e32;
+      --accent: #7ea0e0; --teal: #5cc0ac; --amber: #d9a44e; --code-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 56px 28px 80px; }
+  header { border-bottom: 2px solid var(--ink); padding-bottom: 18px; margin-bottom: 8px; }
+  h1 {
+    font: 600 30px/1.15 Georgia, "Times New Roman", serif;
+    margin: 0 0 6px; letter-spacing: -0.01em;
+  }
+  .sub { color: var(--muted); font-size: 14px; margin: 0; }
+  .sub code { font-size: 13px; }
+  h2 {
+    font: 600 21px/1.25 Georgia, serif;
+    margin: 46px 0 10px; padding-top: 8px;
+    letter-spacing: -0.01em;
+  }
+  h3 { font: 600 15px/1.3 -apple-system, sans-serif; margin: 26px 0 8px; }
+  p { margin: 10px 0; }
+  .lead { color: var(--muted); font-size: 15.5px; }
+  code, pre, .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; font-size: 13.5px; }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 14px 16px; overflow-x: auto; font-size: 13px; line-height: 1.5; margin: 14px 0;
+  }
+  pre code { background: none; padding: 0; }
+  .eyebrow {
+    font: 600 11px/1 -apple-system, sans-serif; text-transform: uppercase;
+    letter-spacing: 0.09em; color: var(--accent); margin: 0 0 4px;
+  }
+  .diagram {
+    border: 1px solid var(--rule); border-radius: 8px; background: var(--paper);
+    padding: 18px 10px; margin: 16px 0; overflow-x: auto;
+  }
+  .diagram .mermaid { text-align: center; min-width: 480px; }
+  table { border-collapse: collapse; width: 100%; margin: 14px 0; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: ui-monospace, monospace; }
+  .note {
+    border-left: 3px solid var(--amber); background: color-mix(in srgb, var(--amber) 8%, transparent);
+    padding: 10px 14px; margin: 16px 0; border-radius: 0 5px 5px 0; font-size: 14.5px;
+  }
+  .note b { color: var(--amber); }
+  ul { padding-left: 22px; margin: 10px 0; }
+  li { margin: 4px 0; }
+  a { color: var(--accent); }
+  hr { border: none; border-top: 1px solid var(--rule); margin: 40px 0; }
+  footer { color: var(--muted); font-size: 13px; margin-top: 8px; }
+  @media print {
+    body { background: #fff; color: #000; }
+    .wrap { max-width: 100%; padding: 0; }
+    h2 { page-break-after: avoid; }
+    .diagram, pre, table, .note { page-break-inside: avoid; }
+    a { color: #000; text-decoration: none; }
+    header { border-color: #000; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>PharmInt ETL Pipeline</h1>
+  <p class="sub">Raw shipment records &rarr; six pre-aggregated analytics collections. Source: <code>backend/scripts/etl-pipeline.js</code></p>
+</header>
+
+<p class="lead">The pipeline reads raw pharmaceutical export shipments, drops low-quality rows, enriches each record, then runs six independent MongoDB aggregations to build the collections the app reads from. Every collection is rebuilt from the same filtered source &mdash; there is no row-by-row processing in application code.</p>
+
+<h2>1. The big picture</h2>
+<p>One source collection feeds six aggregation jobs. Each job groups by a different key and writes its own analytics collection. The app never queries raw shipments &mdash; it reads these outputs.</p>
+
+<div class="diagram">
+<pre class="mermaid">
+flowchart TD
+  SRC["calcdb source<br/><b>prices</b> (~5.9M rows)"]:::src
+  QF{"Quality filters<br/>qualityFilters.js"}:::filter
+  SRC --> QF
+  QF -->|"~14% dropped"| CLEAN["~5.1M clean rows"]:::clean
+  CLEAN --> ENR["Enrich per record<br/>FOB estimate, price cast,<br/>country normalize"]:::enr
+
+  ENR --> J1["group by<br/>product x year x month"]:::job
+  ENR --> J2["group by<br/>country x year x month"]:::job
+  ENR --> J3["group by<br/>exporter (all years)"]:::job
+  ENR --> J4["group by<br/>product x country x month"]:::job
+  ENR --> J5["underserved-market<br/>detection"]:::job
+  ENR --> J6["group by<br/>region x year"]:::job
+
+  J1 --> O1[("product_analytics")]:::out
+  J2 --> O2[("country_market_intel")]:::out
+  J3 --> O3[("exporter_directory")]:::out
+  J4 --> O4[("price_trends_monthly")]:::out
+  J5 --> O5[("market_opportunities")]:::out
+  J6 --> O6[("regional_analytics")]:::out
+
+  classDef src fill:#eef2fb,stroke:#3b5ba5,color:#1f2225;
+  classDef filter fill:#f7edd8,stroke:#a9762a,color:#1f2225;
+  classDef clean fill:#eef2fb,stroke:#3b5ba5,color:#1f2225;
+  classDef enr fill:#eef2fb,stroke:#3b5ba5,color:#1f2225;
+  classDef job fill:#ffffff,stroke:#5c5f63,color:#1f2225;
+  classDef out fill:#e6f2ee,stroke:#2f7d6e,color:#1f2225;
+</pre>
+</div>
+
+<h2>2. Run order</h2>
+<p>The entry point <code>runETL()</code> connects to both databases, builds the filter once, then calls the six generators in sequence. Test mode processes a single year and skips <code>exporter_directory</code> (which needs all years to be correct).</p>
+
+<div class="diagram">
+<pre class="mermaid">
+sequenceDiagram
+  autonumber
+  participant M as runETL()
+  participant S as source db (read)
+  participant A as analytics db (write)
+  M->>S: connect + apply quality filter
+  M->>S: countDocuments (total vs filtered)
+  M->>A: product_analytics
+  M->>A: country_market_intel
+  M->>A: exporter_directory (full runs only)
+  M->>A: price_trends_monthly
+  M->>A: market_opportunities
+  M->>A: regional_analytics
+  M-->>M: log duration + record count
+</pre>
+</div>
+
+<p>Invocation:</p>
+<pre><code>node etl-pipeline.js --test --year=2024   # single year, no exporter dir
+node etl-pipeline.js --full               # all years 2022-2025
+node etl-pipeline.js --full --no-clear    # append instead of rebuild</code></pre>
+
+<h2>3. Stage 1 &mdash; Quality filters</h2>
+<p>A single filter object in <code>qualityFilters.js</code> is <code>$match</code>ed at the head of every aggregation, so all six outputs see the exact same clean rows. A row survives only if all of these hold:</p>
+<ul>
+  <li><b>Currency</b> present and non-empty (any currency &mdash; USD values are pre-converted in the source).</li>
+  <li><b>Unit price</b> present and not one of <code>'' '0' 0 null nan N/A NOT KNOWN NULL</code>, and after casting to double is <code>&gt; 0</code> and <code>&le; 1000</code> (the ceiling rejects entries where a shipment total was pasted into the per-unit field).</li>
+  <li><b>Quantity</b> present and non-zero.</li>
+  <li><b>Destination</b> is a real foreign country &mdash; excludes <code>INDIA</code> (domestic), plus empty / <code>N/A</code> / <code>NOT KNOWN</code>.</li>
+  <li><b>Product description</b> passes six regex filters that strip biological samples, generic "harmless medicine" boilerplate, category labels, veterinary/non-pharma items, invoice admin text, and format-variant junk.</li>
+</ul>
+
+<div class="diagram">
+<pre class="mermaid">
+flowchart LR
+  R["raw row"]:::src --> C1{currency?}:::f
+  C1 -->|no| X[drop]:::x
+  C1 -->|yes| C2{"price valid<br/>0 &lt; p &le; 1000?"}:::f
+  C2 -->|no| X
+  C2 -->|yes| C3{quantity?}:::f
+  C3 -->|no| X
+  C3 -->|yes| C4{"foreign<br/>country?"}:::f
+  C4 -->|no| X
+  C4 -->|yes| C5{"real pharma<br/>description?"}:::f
+  C5 -->|no| X
+  C5 -->|yes| K["keep"]:::k
+  classDef src fill:#eef2fb,stroke:#3b5ba5,color:#1f2225;
+  classDef f fill:#f7edd8,stroke:#a9762a,color:#1f2225;
+  classDef x fill:#f4e3e3,stroke:#a35,color:#1f2225;
+  classDef k fill:#e6f2ee,stroke:#2f7d6e,color:#1f2225;
+</pre>
+</div>
+
+<table>
+  <thead><tr><th>Stage</th><th class="num">Records</th><th class="num">Dropped</th></tr></thead>
+  <tbody>
+    <tr><td>Raw source</td><td class="num">5,921,833</td><td class="num">&mdash;</td></tr>
+    <tr><td>After basic filters</td><td class="num">5,139,033</td><td class="num">782,800</td></tr>
+    <tr><td>After price ceiling</td><td class="num">5,094,659</td><td class="num">44,374</td></tr>
+    <tr><td><b>Final</b></td><td class="num"><b>~5,094,659</b></td><td class="num"><b>~14%</b></td></tr>
+  </tbody>
+</table>
+
+<h2>4. Stage 2 &mdash; Enrichment</h2>
+<p>Each generator adds computed fields with <code>$addFields</code> before grouping. Three matter most:</p>
+<ul>
+  <li><b>FOB with fallback</b> &mdash; <code>safeToFOB()</code>: use <code>FOB_VALUE_USD</code> when it's valid, otherwise estimate <code>QUANTITY &times; UNIT_PRICE_USD</code>. This recovers ~23K rows that would otherwise have no trade value.</li>
+  <li><b>FOB estimated flag</b> &mdash; <code>isFOBEstimated()</code> returns 1/0 so each output can report what share of its value was estimated in a <code>data_quality</code> sub-document.</li>
+  <li><b>Country normalization</b> &mdash; only in <code>country_market_intel</code>, a MongoDB <code>$switch</code> collapses variants (DRC, Congo Kinshasa, USA/US, UK/Britain, misspellings) to canonical names so they don't split into separate rows.</li>
+</ul>
+
+<div class="note">
+  <b>Worth flagging for study.</b> The <code>$switch</code> normalization runs <em>only</em> inside the country generator. The other five collections still group on the raw <code>DESTINATION_COUNTRY</code>/<code>PRODUCT_DESCRIPTION</code>, so the same country can appear under several spellings there. A standalone <code>normalizeCountry()</code> JS function exists in the file but is never called by the aggregation.
+</div>
+
+<h2>5. Stages 3&ndash;5 &mdash; Group, shape, insert</h2>
+<p>Every generator follows the same three moves: <code>$group</code> on its key, <code>$project</code> to shape the final document, then <code>insertMany</code>. The pipeline uses accumulators (<code>$topN</code>, <code>$percentile</code>, per-currency counters) instead of <code>$push</code> to keep memory bounded on millions of rows.</p>
+
+<table>
+  <thead><tr><th>Collection</th><th>Grouped by</th><th>Key computed fields</th></tr></thead>
+  <tbody>
+    <tr><td>product_analytics</td><td>product &times; year &times; month</td><td>avg/min/max/stddev price, percentiles (p25&ndash;p999), IQR outlier bounds, top-5 exporters/destinations, air/sea split</td></tr>
+    <tr><td>country_market_intel</td><td>country* &times; year &times; month</td><td>total import value, top-10 products, top suppliers, ports, shipment modes</td></tr>
+    <tr><td>exporter_directory</td><td>exporter (all years)</td><td>years active, countries served, reliability score, avg frequency, contact info</td></tr>
+    <tr><td>price_trends_monthly</td><td>product &times; country &times; year-month</td><td>avg/min/max price, volume, transaction count &mdash; time-series for charts</td></tr>
+    <tr><td>market_opportunities</td><td>product &times; country</td><td>underserved markets: &ge;5 transactions but &lt;5 suppliers; size estimate; capped at top 1000</td></tr>
+    <tr><td>regional_analytics</td><td>region &times; year</td><td>Indian + foreign regions, transaction count, total value</td></tr>
+  </tbody>
+</table>
+<p class="sub">* country is normalized via <code>$switch</code>; the others group on raw values.</p>
+
+<h3>Worked example &mdash; one row through country_market_intel</h3>
+<pre><code>// raw shipment
+{ PRODUCT_DESCRIPTION: "PARACETAMOL TABLETS 500MG",
+  QUANTITY: "10000", UNIT_PRICE_USD: "0.0045",
+  FOB_VALUE_USD: "45.00", CURRENCY: "USD",
+  DESTINATION_COUNTRY: "CONGO KINSHASA", YEAR: "2022", MONTH: "1" }
+
+// after enrich: country_normalized -> "DR CONGO", fob_numeric 45.00, estimated 0
+// grouped output
+{ country: "DR CONGO", year: "2022", month: "1",
+  total_import_value_usd: 125000.50, transaction_count: 45,
+  top_10_products: [ ... ], top_suppliers: [ ... ],
+  shipment_modes: { air_pct: 60, sea_pct: 40 },
+  data_quality: { fob_estimated_pct: 4.4, currency_breakdown: {...} } }</code></pre>
+
+<h2>6. Clear-and-rebuild behavior</h2>
+<p>By default each generator clears before writing, so a run is idempotent. The scope of the clear differs, which is the subtle part:</p>
+<ul>
+  <li><b>Year-scoped</b> (product, country, price-trends, regional): delete only rows for the year being processed &mdash; safe for incremental single-year runs.</li>
+  <li><b>Full wipe</b> (exporter_directory, market_opportunities): always <code>deleteMany({})</code> because they aggregate across all years; run these with <code>--full</code> only.</li>
+  <li><code>--no-clear</code> skips deletion entirely (append mode).</li>
+</ul>
+
+<hr>
+<footer>
+  Reference doc for the analytics ETL. Source of truth is the code, not this page &mdash;
+  <code>backend/scripts/etl-pipeline.js</code>, <code>backend/utils/qualityFilters.js</code>, <code>backend/utils/mongoClient.js</code>.
+</footer>
+
+</div>
+
+<script>
+  const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: dark ? 'dark' : 'neutral',
+    flowchart: { curve: 'basis', useMaxWidth: true },
+    themeVariables: { fontFamily: 'ui-monospace, Menlo, monospace', fontSize: '13px' }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+event_id;event_date;year_month;severity;event_type;scope;country_normalized;drug_tag;tag_level;headline
+E001;2026-01-26;2026-01;high;Disease Outbreak;country;ETHIOPIA;antibiotics;category;Marburg virus disease - Ethiopia (outbreak declared over)
+E001;2026-01-26;2026-01;high;Disease Outbreak;country;ETHIOPIA;vaccines;category;Marburg virus disease - Ethiopia (outbreak declared over)
+E001;2026-01-26;2026-01;high;Disease Outbreak;country;ETHIOPIA;analgesics;category;Marburg virus disease - Ethiopia (outbreak declared over)
+E002;2026-01-30;2026-01;high;Disease Outbreak;country;INDIA;antibiotics;category;Nipah virus disease - India (West Bengal)
+E002;2026-01-30;2026-01;high;Disease Outbreak;country;INDIA;vaccines;category;Nipah virus disease - India (West Bengal)
+E002;2026-01-30;2026-01;high;Disease Outbreak;country;INDIA;analgesics;category;Nipah virus disease - India (West Bengal)
+E003;2026-02-07;2026-02;high;Disease Outbreak;country;BANGLADESH;antibiotics;category;Nipah virus infection - Bangladesh (Rajshahi)
+E003;2026-02-07;2026-02;high;Disease Outbreak;country;BANGLADESH;vaccines;category;Nipah virus infection - Bangladesh (Rajshahi)
+E003;2026-02-07;2026-02;high;Disease Outbreak;country;BANGLADESH;analgesics;category;Nipah virus infection - Bangladesh (Rajshahi)
+E004;2026-02-14;2026-02;high;Disease Outbreak;drug;GLOBAL;vaccines;category;Mpox recombinant clade Ib/IIb - global situation
+E004;2026-02-14;2026-02;high;Disease Outbreak;drug;GLOBAL;antivirals;category;Mpox recombinant clade Ib/IIb - global situation
+E004;2026-02-14;2026-02;high;Disease Outbreak;drug;GLOBAL;tecovirimat;substance;Mpox recombinant clade Ib/IIb - global situation
+E005;2026-03-12;2026-03;medium;Trade Policy;global;;pharmaceuticals;category;Survival home remedies consumer research report
+E006;2026-03-13;2026-03;high;Regulatory;global;;pharmaceuticals;category;New impurity in knockoff Zepbound - Eli Lilly safety warning
+E007;2026-03-13;2026-03;critical;Disease Outbreak;global;;activated charcoal;category;Infant formula / ARA oil contaminated with cereulide toxin - multi-country
+E007;2026-03-13;2026-03;critical;Disease Outbreak;global;;antiemetics;category;Infant formula / ARA oil contaminated with cereulide toxin - multi-country
+E007;2026-03-13;2026-03;critical;Disease Outbreak;global;;intravenous fluids;category;Infant formula / ARA oil contaminated with cereulide toxin - multi-country
+E007;2026-03-13;2026-03;critical;Disease Outbreak;global;;oral rehydration salts;category;Infant formula / ARA oil contaminated with cereulide toxin - multi-country
+E007;2026-03-13;2026-03;critical;Disease Outbreak;global;;antibiotics;category;Infant formula / ARA oil contaminated with cereulide toxin - multi-country
+E008;2026-03-16;2026-03;high;Regulatory;global;;pharmaceuticals;category;FDA warning to Novo Nordisk over adverse event reporting
+E009;2026-03-17;2026-03;medium;Trade Policy;country;IRAN;pharmaceuticals;category;Iran war may spark medicine shortage amid UK meningitis outbreak
+E010;2026-03-17;2026-03;medium;Regulatory;drug_country;UNITED STATES;semaglutide;substance;FDA on Novo Nordisk side-effect reporting (Ozempic)
+E011;2026-03-17;2026-03;medium;Trade Policy;global;;pharmaceuticals;category;Patcos Cosmetics Pvt. Ltd. - adulterated finished drug products
+E012;2026-03-17;2026-03;medium;Trade Policy;global;;pharmaceuticals;category;Healthcare distribution market projection to 2035 (SNS Insider)
+E013;2026-03-18;2026-03;medium;Regulatory;drug;;semaglutide;substance;MEDVi GLP-1 telehealth claims evaluated
+E013;2026-03-18;2026-03;medium;Regulatory;drug;;GLP-1 agonists;category;MEDVi GLP-1 telehealth claims evaluated
+E014;2026-03-18;2026-03;high;Patent / IP;drug_country;INDIA;semaglutide;substance;India's cheap weight-loss drugs could reshape global obesity fight
+E015;2026-03-18;2026-03;high;Conflict;global;;antibiotics;category;Health care cyberattacks expose national security failure
+E015;2026-03-18;2026-03;high;Conflict;global;;surgical supplies;category;Health care cyberattacks expose national security failure
+E015;2026-03-18;2026-03;high;Conflict;global;;analgesics;category;Health care cyberattacks expose national security failure
+E015;2026-03-18;2026-03;high;Conflict;global;;anesthetics;category;Health care cyberattacks expose national security failure
+E015;2026-03-18;2026-03;high;Conflict;global;;blood products;category;Health care cyberattacks expose national security failure
+E016;2026-03-18;2026-03;medium;Trade Policy;global;;antibiotics;category;Meningococcal outbreak in Kent sparks vaccine shortage
+E016;2026-03-18;2026-03;medium;Trade Policy;global;;vaccines;category;Meningococcal outbreak in Kent sparks vaccine shortage
+E017;2026-03-19;2026-03;medium;Regulatory;global;;pharmaceuticals;category;FDA safety communication - 32mg IV ondansetron (Zofran) withdrawn
+E018;2026-03-20;2026-03;high;Patent / IP;drug_country;INDIA;GLP-1 agonists;category;Ozempic copies to cost $14 in India as generic GLP-1 era starts
+E018;2026-03-20;2026-03;high;Patent / IP;drug_country;INDIA;semaglutide;substance;Ozempic copies to cost $14 in India as generic GLP-1 era starts
+E019;2026-03-20;2026-03;high;Patent / IP;drug_country;INDIA;semaglutide;substance;Natco launches Rs 1,290 semaglutide as Novo patent expires
+E020;2026-03-21;2026-03;medium;Patent / IP;drug_country;INDIA;semaglutide;substance;A blockbuster unleashed - 40+ Indian generic entrants
+E021;2026-03-21;2026-03;high;Patent / IP;drug;;semaglutide;substance;Day 1 semaglutide patent expiry - Sun Pharma, Zydus launch generics
+E022;2026-03-21;2026-03;medium;Trade Policy;drug_country;INDIA;semaglutide;substance;Alkem launches semaglutide in India at Rs 450 per week
+E023;2026-03-21;2026-03;high;Trade Policy;country;IRAN;pharmaceuticals;category;Three critical supply chains upended by the war in Iran
+E024;2026-03-23;2026-03;medium;Patent / IP;drug_country;INDIA;semaglutide;substance;DCGI intervention after semaglutide genericisation
+E025;2026-03-23;2026-03;medium;Patent / IP;drug_country;INDIA;semaglutide;substance;Novo Nordisk India chief on evolving landscape
+E026;2026-03-23;2026-03;high;Patent / IP;drug_country;CHINA;semaglutide;substance;Generic weight-loss drugs an opportunity for Chinese and Indian drugmakers
+E026;2026-03-23;2026-03;high;Patent / IP;drug_country;INDIA;semaglutide;substance;Generic weight-loss drugs an opportunity for Chinese and Indian drugmakers
+E027;2026-03-23;2026-03;medium;Trade Policy;global;;pharmaceuticals;category;Dollar scarcity in Venezuela forces firms to raise prices, turn to crypto
+E028;2026-03-23;2026-03;medium;Trade Policy;global;;pharmaceuticals;category;Dollar scarcity in Venezuela (duplicate feed item)
+E029;2026-03-23;2026-03;medium;Trade Policy;global;;pharmaceuticals;category;Pharma company rebrands to Stablecoin Development Corp
+E030;2026-03-23;2026-03;high;Sanctions;global;;antibiotics;category;Dispatch from Cuba - US sanctions deepen medical supply crisis
+E030;2026-03-23;2026-03;high;Sanctions;global;;surgical supplies;category;Dispatch from Cuba - US sanctions deepen medical supply crisis
+E030;2026-03-23;2026-03;high;Sanctions;global;;analgesics;category;Dispatch from Cuba - US sanctions deepen medical supply crisis
+E031;2026-03-24;2026-03;medium;Trade Policy;global;;pharmaceuticals;category;Medicine shortage risk if sea and air routes blocked
+E032;2026-03-24;2026-03;medium;Trade Policy;country;INDIA;GLP-1 agonists;category;India tightens grip on GLP-1 supply chain amid misuse concerns
+E033;2026-03-24;2026-03;medium;Trade Policy;country;INDIA;GLP-1 agonists;category;DCGI intensifies crackdown on GLP-1 misuse, sales and ads
+E034;2026-03-24;2026-03;medium;Patent / IP;country;INDIA;GLP-1 agonists;category;India steps up surveillance on generic GLP-1 drugs
+E035;2026-03-24;2026-03;high;Regulatory;global;;pharmaceuticals;category;ImmunityBio shares drop 20% on FDA warning letter
+E036;2026-03-24;2026-03;high;Regulatory;global;;pharmaceuticals;category;FDA flags misleading cancer drug claims by Soon-Shiong
+E037;2026-03-24;2026-03;medium;Regulatory;global;;vaccines;category;FDA flags misleading cancer vaccine claims by Soon-Shiong
+E038;2026-03-24;2026-03;high;Trade Policy;drug_country;INDIA;paracetamol;substance;Rising chemical costs choke production at drug ingredient makers
+E039;2026-03-25;2026-03;high;Regulatory;global;;pharmaceuticals;category;FDA says claims about cancer drug Anktiva are misleading
+E040;2026-03-25;2026-03;high;Regulatory;global;;pharmaceuticals;category;FDA flags misleading claims for cancer drug (repeat item)
+E041;2026-03-25;2026-03;medium;Regulatory;global;;pharmaceuticals;category;Pharma bribery review - sham studies, slush funds, shell companies
+E042;2026-03-25;2026-03;medium;Trade Policy;global;;antibiotics;category;Racial/ethnic differences in antibiotic treatment of CAP
+E043;2026-03-25;2026-03;medium;Trade Policy;global;;pharmaceuticals;category;Klebsiella pneumoniae capsule locus serotype exchange study
+E044;2026-03-25;2026-03;medium;Trade Policy;country;ETHIOPIA;antibiotics;category;Neonatal sepsis AMR profile, Asella Teaching Hospital, Ethiopia
+E045;2026-03-25;2026-03;medium;Trade Policy;global;;antibiotics;category;Drug-resistant tuberculosis rising in the US
+E046;2026-03-25;2026-03;medium;Trade Policy;global;;GLP-1 agonists;category;GLP-1 drugs show promise in managing chronic migraines
+E047;2026-03-25;2026-03;medium;Trade Policy;global;;antibiotics;category;Antibiotic resistance swells during droughts
+E048;2026-03-25;2026-03;medium;Trade Policy;global;;GLP-1 agonists;category;VITL raises $7.5M for cash-pay clinic GLP-1 prescribing
+E049;2026-03-25;2026-03;medium;Patent / IP;global;;GLP-1 agonists;category;Artelo expands ART27.13 as GLP-1 companion therapy
+E050;2026-03-25;2026-03;medium;Patent / IP;global;;pharmaceuticals;category;FY 2025 GDUFA science and research report
+E051;2026-03-26;2026-03;high;Regulatory;global;;pharmaceuticals;category;FDA objects to claims by Soon-Shiong on cancer drug
+E052;2026-03-26;2026-03;medium;Trade Policy;global;;antibiotics;category;Soil may be a source of antibiotic resistance
+E053;2026-03-26;2026-03;medium;Trade Policy;country;HUNGARY;pharmaceuticals;category;Hungarian investment trends 2026 - sector growth outlook
+E054;2026-03-26;2026-03;medium;Trade Policy;country;UNITED STATES;pharmaceuticals;category;Texas Attorney General takes on pharma again
+E055;2026-03-26;2026-03;medium;Trade Policy;country;BRAZIL;pharmaceuticals;category;Brazil exempts import tariffs on 970 IT and capital goods items
+E056;2026-03-26;2026-03;medium;Trade Policy;country;PHILIPPINES;pharmaceuticals;category;Zuellig Pharma opens Misato depot in Japan
+E057;2026-03-26;2026-03;medium;Trade Policy;country;GERMANY;pharmaceuticals;category;German electronic patient record (ePa) technical problems
+E058;2026-03-26;2026-03;medium;Trade Policy;country;UNITED STATES;pharmaceuticals;category;US investigation into race discrimination in UCSD/Stanford admissions
+E059;2026-03-26;2026-03;medium;Trade Policy;country;UNITED STATES;pharmaceuticals;category;Third Circuit hears $1.6bn Johnson & Johnson appeal
+E060;2026-03-26;2026-03;medium;Trade Policy;global;;pharmaceuticals;category;Andersen Consulting agrees collaboration with Solutia
+E061;2026-03-26;2026-03;medium;Trade Policy;country;RUSSIA;pharmaceuticals;category;Latvia moves to sever trade ties with Russia

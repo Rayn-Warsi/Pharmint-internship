@@ -1,0 +1,17 @@
+Panel: 14843 rows, 792 substances, T=20
+
+Base GMM phi1: -0.0257
+
+======================================================================
+MODEL F -- Arellano-Bond GMM + XGBoost residual correction
+======================================================================
+Residual-correction XGBoost trained on 9348 rows, features: ['y_l1', 'y_l2', 'ln_p50_l1', 'avg_deal_size_l1', 'exporter_churn_l1', 'destination_count_l1', 'price_spread_l1']
+
+Direct XGBoost and LightGBM regressors trained on the same rows/features.
+
+Model F test (t=20): {'n': 791, 'rmse_log': 0.656314258746323, 'rmse_count': 16.512588641936645, 'mae_count': 7.7617617720185414, 'mae_naive': 8.711757269279394, 'mase': 0.890952483190635, 'mean_signed_err': -1.4188508224315748, 'total_pred': 40835.68899945662, 'total_actual': 41958.0}  oos_r2=0.9856
+Model G test (t=20): {'n': 791, 'rmse_log': 0.6047775074287621, 'rmse_count': 17.19043895330232, 'mae_count': 7.094987116367788, 'mae_naive': 8.711757269279394, 'mase': 0.814415151508768, 'mean_signed_err': -2.179757233839157, 'total_pred': 40233.81202803322, 'total_actual': 41958.0}  oos_r2=0.9844
+
+Saved -> Forecasted results/model_ensemble/model_ensemble_test_t8.csv (791 rows)
+
+Saved -> Forecasted results/model_ensemble/model_ensemble_forecast_t9.csv (792 rows)

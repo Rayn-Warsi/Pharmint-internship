@@ -1,0 +1,14 @@
+Country panel: 406722 rows, 27003 drug x country pairs, T=20
+
+Base GMM (country grain) phi1: +0.0115
+
+======================================================================
+MODEL F (country grain) -- Arellano-Bond GMM + XGBoost residual correction
+======================================================================
+Residual-correction XGBoost trained on 256174 rows, features: ['y_l1', 'y_l2', 'ln_p50_l1', 'avg_deal_size_l1', 'exporter_churn_l1', 'price_spread_l1']
+
+Model F test (t=20): {'n': 25605, 'rmse_log': 0.47165789462933944, 'rmse_count': 3.7328275138774303, 'mae_count': 1.009825782906917, 'mae_naive': 1.1641476274165201, 'mase': 0.8674379083243294, 'mean_signed_err': -0.23797663517036938, 'total_pred': 34998.608256462685, 'total_actual': 41092.0}  oos_r2=0.7806
+
+Saved -> Forecasted results/model_ensemble/model_ensemble_test_t8_country.csv (25605 rows)
+
+Saved -> Forecasted results/model_ensemble/model_ensemble_forecast_t9_country.csv (27003 rows, 7145 low_confidence)

@@ -1,0 +1,18 @@
+Panel: 14843 rows, 792 substances, T=20
+
+======================================================================
+MIXED MODEL -- per-substance best-of(A AR(1), C PPML)
+======================================================================
+Routing (t=19 validation): 390 substances -> A, 401 substances -> C
+Saved -> Forecasted results/mixed_ac/mixed_ac_routing.csv
+
+Model A (AR1) test (t=20): {'n': 791, 'rmse_log': 0.6481475824810484, 'rmse_count': 15.893412213550983, 'mae_count': 7.48050276149056, 'mae_naive': 8.711757269279394, 'mase': 0.8586674915598654, 'mean_signed_err': -1.635341025970694, 'total_pred': 40664.44524845718, 'total_actual': 41958.0}  oos_r2=0.9866
+Model C (PPML) test (t=20): {'n': 791, 'rmse_log': 0.6689566193336792, 'rmse_count': 15.58150725020984, 'mae_count': 7.463144678340618, 'mae_naive': 8.711757269279394, 'mase': 0.8566750022590957, 'mean_signed_err': -0.3544691109303649, 'total_pred': 41677.61493325408, 'total_actual': 41958.0}  oos_r2=0.9872
+Model D (AB-GMM) test (t=20): {'n': 791, 'rmse_log': 0.6569589789813728, 'rmse_count': 16.25301818280819, 'mae_count': 7.640405039269591, 'mae_naive': 8.711757269279394, 'mase': 0.877022258897438, 'mean_signed_err': -1.7631220227242381, 'total_pred': 40563.37048002513, 'total_actual': 41958.0}  oos_r2=0.9860
+Mixed (A/C) test (t=20): {'n': 791, 'rmse_log': 0.6376953570665206, 'rmse_count': 15.473797681205937, 'mae_count': 7.336622543837329, 'mae_naive': 8.711757269279394, 'mase': 0.8421518549086239, 'mean_signed_err': -0.8353506105755005, 'total_pred': 41297.23766703478, 'total_actual': 41958.0}  oos_r2=0.9873
+
+Saved -> Forecasted results/mixed_ac_comparison.csv
+
+Saved -> Forecasted results/mixed_ac/mixed_ac_test_t8.csv (791 rows)
+
+Saved -> Forecasted results/mixed_ac/mixed_ac_forecast_t9.csv (792 rows)

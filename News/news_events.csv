@@ -1,0 +1,62 @@
+event_id;event_date;year_month;severity;event_type;scope;tag_level;country_tags;drug_tags;affected_value_musd;risk_label;source;headline
+E001;2026-01-26;2026-01;high;Disease Outbreak;country;category;ETHIOPIA;antibiotics|vaccines|analgesics;15770.0;Significant risk;WHO;Marburg virus disease - Ethiopia (outbreak declared over)
+E002;2026-01-30;2026-01;high;Disease Outbreak;country;category;INDIA;antibiotics|vaccines|analgesics;24080.0;Significant risk;WHO;Nipah virus disease - India (West Bengal)
+E003;2026-02-07;2026-02;high;Disease Outbreak;country;category;BANGLADESH;antibiotics|vaccines|analgesics;1520.0;Significant risk;WHO;Nipah virus infection - Bangladesh (Rajshahi)
+E004;2026-02-14;2026-02;high;Disease Outbreak;drug;substance;GLOBAL;vaccines|antivirals|tecovirimat;;;WHO;Mpox recombinant clade Ib/IIb - global situation
+E005;2026-03-12;2026-03;medium;Trade Policy;global;category;;pharmaceuticals;;;News;Survival home remedies consumer research report
+E006;2026-03-13;2026-03;high;Regulatory;global;category;;pharmaceuticals;;;News;New impurity in knockoff Zepbound - Eli Lilly safety warning
+E007;2026-03-13;2026-03;critical;Disease Outbreak;global;category;;activated charcoal|antiemetics|intravenous fluids|oral rehydration salts|antibiotics;;;WHO;Infant formula / ARA oil contaminated with cereulide toxin - multi-country
+E008;2026-03-16;2026-03;high;Regulatory;global;category;;pharmaceuticals;;;News;FDA warning to Novo Nordisk over adverse event reporting
+E009;2026-03-17;2026-03;medium;Trade Policy;country;category;IRAN;pharmaceuticals;183.45;Moderate risk;News;Iran war may spark medicine shortage amid UK meningitis outbreak
+E010;2026-03-17;2026-03;medium;Regulatory;drug_country;substance;UNITED STATES;semaglutide;;;News;FDA on Novo Nordisk side-effect reporting (Ozempic)
+E011;2026-03-17;2026-03;medium;Trade Policy;global;category;;pharmaceuticals;;;News;Patcos Cosmetics Pvt. Ltd. - adulterated finished drug products
+E012;2026-03-17;2026-03;medium;Trade Policy;global;category;;pharmaceuticals;;;News;Healthcare distribution market projection to 2035 (SNS Insider)
+E013;2026-03-18;2026-03;medium;Regulatory;drug;substance;;semaglutide|GLP-1 agonists;;;News;MEDVi GLP-1 telehealth claims evaluated
+E014;2026-03-18;2026-03;high;Patent / IP;drug_country;substance;INDIA;semaglutide;24080.0;Significant risk;News;India's cheap weight-loss drugs could reshape global obesity fight
+E015;2026-03-18;2026-03;high;Conflict;global;category;;antibiotics|surgical supplies|analgesics|anesthetics|blood products;;;News;Health care cyberattacks expose national security failure
+E016;2026-03-18;2026-03;medium;Trade Policy;global;category;;antibiotics|vaccines;;;News;Meningococcal outbreak in Kent sparks vaccine shortage
+E017;2026-03-19;2026-03;medium;Regulatory;global;category;;pharmaceuticals;;;News;FDA safety communication - 32mg IV ondansetron (Zofran) withdrawn
+E018;2026-03-20;2026-03;high;Patent / IP;drug_country;substance;INDIA;GLP-1 agonists|semaglutide;24080.0;Significant risk;News;Ozempic copies to cost $14 in India as generic GLP-1 era starts
+E019;2026-03-20;2026-03;high;Patent / IP;drug_country;substance;INDIA;semaglutide;24080.0;Significant risk;News;Natco launches Rs 1,290 semaglutide as Novo patent expires
+E020;2026-03-21;2026-03;medium;Patent / IP;drug_country;substance;INDIA;semaglutide;24080.0;Moderate risk;News;A blockbuster unleashed - 40+ Indian generic entrants
+E021;2026-03-21;2026-03;high;Patent / IP;drug;substance;;semaglutide;;;News;Day 1 semaglutide patent expiry - Sun Pharma, Zydus launch generics
+E022;2026-03-21;2026-03;medium;Trade Policy;drug_country;substance;INDIA;semaglutide;24080.0;Moderate risk;News;Alkem launches semaglutide in India at Rs 450 per week
+E023;2026-03-21;2026-03;high;Trade Policy;country;category;IRAN;pharmaceuticals;183.45;Significant risk;News;Three critical supply chains upended by the war in Iran
+E024;2026-03-23;2026-03;medium;Patent / IP;drug_country;substance;INDIA;semaglutide;24080.0;Moderate risk;News;DCGI intervention after semaglutide genericisation
+E025;2026-03-23;2026-03;medium;Patent / IP;drug_country;substance;INDIA;semaglutide;24080.0;Moderate risk;News;Novo Nordisk India chief on evolving landscape
+E026;2026-03-23;2026-03;high;Patent / IP;drug_country;substance;CHINA|INDIA;semaglutide;24880.0;Significant risk;News;Generic weight-loss drugs an opportunity for Chinese and Indian drugmakers
+E027;2026-03-23;2026-03;medium;Trade Policy;global;category;;pharmaceuticals;;;News;Dollar scarcity in Venezuela forces firms to raise prices, turn to crypto
+E028;2026-03-23;2026-03;medium;Trade Policy;global;category;;pharmaceuticals;;;News;Dollar scarcity in Venezuela (duplicate feed item)
+E029;2026-03-23;2026-03;medium;Trade Policy;global;category;;pharmaceuticals;;;News;Pharma company rebrands to Stablecoin Development Corp
+E030;2026-03-23;2026-03;high;Sanctions;global;category;;antibiotics|surgical supplies|analgesics;;;News;Dispatch from Cuba - US sanctions deepen medical supply crisis
+E031;2026-03-24;2026-03;medium;Trade Policy;global;category;;pharmaceuticals;;;News;Medicine shortage risk if sea and air routes blocked
+E032;2026-03-24;2026-03;medium;Trade Policy;country;category;INDIA;GLP-1 agonists;24080.0;Moderate risk;News;India tightens grip on GLP-1 supply chain amid misuse concerns
+E033;2026-03-24;2026-03;medium;Trade Policy;country;category;INDIA;GLP-1 agonists;24080.0;Moderate risk;News;DCGI intensifies crackdown on GLP-1 misuse, sales and ads
+E034;2026-03-24;2026-03;medium;Patent / IP;country;category;INDIA;GLP-1 agonists;24080.0;Moderate risk;News;India steps up surveillance on generic GLP-1 drugs
+E035;2026-03-24;2026-03;high;Regulatory;global;category;;pharmaceuticals;;;News;ImmunityBio shares drop 20% on FDA warning letter
+E036;2026-03-24;2026-03;high;Regulatory;global;category;;pharmaceuticals;;;News;FDA flags misleading cancer drug claims by Soon-Shiong
+E037;2026-03-24;2026-03;medium;Regulatory;global;category;;vaccines;;;News;FDA flags misleading cancer vaccine claims by Soon-Shiong
+E038;2026-03-24;2026-03;high;Trade Policy;drug_country;substance;INDIA;paracetamol;24080.0;Significant risk;News;Rising chemical costs choke production at drug ingredient makers
+E039;2026-03-25;2026-03;high;Regulatory;global;category;;pharmaceuticals;;;News;FDA says claims about cancer drug Anktiva are misleading
+E040;2026-03-25;2026-03;high;Regulatory;global;category;;pharmaceuticals;;;News;FDA flags misleading claims for cancer drug (repeat item)
+E041;2026-03-25;2026-03;medium;Regulatory;global;category;;pharmaceuticals;;;News;Pharma bribery review - sham studies, slush funds, shell companies
+E042;2026-03-25;2026-03;medium;Trade Policy;global;category;;antibiotics;;;News;Racial/ethnic differences in antibiotic treatment of CAP
+E043;2026-03-25;2026-03;medium;Trade Policy;global;category;;pharmaceuticals;;;News;Klebsiella pneumoniae capsule locus serotype exchange study
+E044;2026-03-25;2026-03;medium;Trade Policy;country;category;ETHIOPIA;antibiotics;15770.0;Moderate risk;News;Neonatal sepsis AMR profile, Asella Teaching Hospital, Ethiopia
+E045;2026-03-25;2026-03;medium;Trade Policy;global;category;;antibiotics;;;News;Drug-resistant tuberculosis rising in the US
+E046;2026-03-25;2026-03;medium;Trade Policy;global;category;;GLP-1 agonists;;;News;GLP-1 drugs show promise in managing chronic migraines
+E047;2026-03-25;2026-03;medium;Trade Policy;global;category;;antibiotics;;;News;Antibiotic resistance swells during droughts
+E048;2026-03-25;2026-03;medium;Trade Policy;global;category;;GLP-1 agonists;;;News;VITL raises $7.5M for cash-pay clinic GLP-1 prescribing
+E049;2026-03-25;2026-03;medium;Patent / IP;global;category;;GLP-1 agonists;;;News;Artelo expands ART27.13 as GLP-1 companion therapy
+E050;2026-03-25;2026-03;medium;Patent / IP;global;category;;pharmaceuticals;;;News;FY 2025 GDUFA science and research report
+E051;2026-03-26;2026-03;high;Regulatory;global;category;;pharmaceuticals;;;News;FDA objects to claims by Soon-Shiong on cancer drug
+E052;2026-03-26;2026-03;medium;Trade Policy;global;category;;antibiotics;;;News;Soil may be a source of antibiotic resistance
+E053;2026-03-26;2026-03;medium;Trade Policy;country;category;HUNGARY;pharmaceuticals;76640.0;Moderate risk;GDELT;Hungarian investment trends 2026 - sector growth outlook
+E054;2026-03-26;2026-03;medium;Trade Policy;country;category;UNITED STATES;pharmaceuticals;;;GDELT;Texas Attorney General takes on pharma again
+E055;2026-03-26;2026-03;medium;Trade Policy;country;category;BRAZIL;pharmaceuticals;30800.0;Moderate risk;GDELT;Brazil exempts import tariffs on 970 IT and capital goods items
+E056;2026-03-26;2026-03;medium;Trade Policy;country;category;PHILIPPINES;pharmaceuticals;9260.0;Moderate risk;GDELT;Zuellig Pharma opens Misato depot in Japan
+E057;2026-03-26;2026-03;medium;Trade Policy;country;category;GERMANY;pharmaceuticals;523690.0;Moderate risk;GDELT;German electronic patient record (ePa) technical problems
+E058;2026-03-26;2026-03;medium;Trade Policy;country;category;UNITED STATES;pharmaceuticals;;;GDELT;US investigation into race discrimination in UCSD/Stanford admissions
+E059;2026-03-26;2026-03;medium;Trade Policy;country;category;UNITED STATES;pharmaceuticals;;;GDELT;Third Circuit hears $1.6bn Johnson & Johnson appeal
+E060;2026-03-26;2026-03;medium;Trade Policy;global;category;;pharmaceuticals;;;GDELT;Andersen Consulting agrees collaboration with Solutia
+E061;2026-03-26;2026-03;medium;Trade Policy;country;category;RUSSIA;pharmaceuticals;183560.0;Moderate risk;GDELT;Latvia moves to sever trade ties with Russia

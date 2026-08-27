@@ -1,0 +1,294 @@
+Panel: 14843 rows, 792 substances, T=20
+Train substances: 634, holdout substances: 158
+
+======================================================================
+MODEL A -- AR(1) vs AR(2), substance fixed effects, clustered SE
+======================================================================
+--- AR(1) ---
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:                      y   R-squared:                        0.0005
+Estimator:                   PanelOLS   R-squared (Between):              0.0409
+No. Observations:                9542   R-squared (Within):               0.0005
+Date:                Mon, Aug 24 2026   R-squared (Overall):              0.0404
+Time:                        23:39:42   Log-likelihood                   -7329.1
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      4.3649
+Entities:                         633   P-value                           0.0367
+Avg Obs:                       15.074   Distribution:                  F(1,8908)
+Min Obs:                       1.0000                                           
+Max Obs:                       16.000   F-statistic (robust):             1.9058
+                                        P-value                           0.1675
+Time periods:                      16   Distribution:                  F(1,8908)
+Avg Obs:                       596.38                                           
+Min Obs:                       503.00                                           
+Max Obs:                       633.00                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          2.1551     0.0356     60.546     0.0000      2.0853      2.2249
+y_l1           0.0222     0.0161     1.3805     0.1675     -0.0093      0.0538
+==============================================================================
+
+F-test for Poolability: 12.600
+P-value: 0.0000
+Distribution: F(632,8908)
+
+Included effects: Entity
+--- AR(2) ---
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:                      y   R-squared:                        0.0011
+Estimator:                   PanelOLS   R-squared (Between):              0.0867
+No. Observations:                9348   R-squared (Within):               0.0011
+Date:                Mon, Aug 24 2026   R-squared (Overall):              0.0833
+Time:                        23:39:42   Log-likelihood                   -7152.4
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      4.7151
+Entities:                         628   P-value                           0.0090
+Avg Obs:                       14.885   Distribution:                  F(2,8718)
+Min Obs:                       2.0000                                           
+Max Obs:                       16.000   F-statistic (robust):             1.7778
+                                        P-value                           0.1691
+Time periods:                      16   Distribution:                  F(2,8718)
+Avg Obs:                       584.25                                           
+Min Obs:                       439.00                                           
+Max Obs:                       628.00                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          2.1343     0.0551     38.750     0.0000      2.0263      2.2423
+y_l1           0.0243     0.0162     1.5071     0.1318     -0.0073      0.0560
+y_l2           0.0219     0.0140     1.5619     0.1183     -0.0056      0.0494
+==============================================================================
+
+F-test for Poolability: 6.3697
+P-value: 0.0000
+Distribution: F(627,8718)
+
+Included effects: Entity
+Stationarity (A, AR2): phi1+phi2<1=True, phi2-phi1<1=True, |phi2|<1=True -> OK
+
+Model A AR(1) validation (t=19, train-subs): {'n': 633, 'rmse_log': np.float64(0.5960378343080388), 'rmse_count': np.float64(20.54184754409117), 'mae_count': np.float64(7.999717514136718), 'mae_naive': np.float64(9.342812006319114), 'mase': np.float64(0.856243014279429)}
+Model A AR(1) validation (t=19, holdout-subs): {'n': 158, 'rmse_log': np.float64(0.5729493158781643), 'rmse_count': np.float64(24.076872348883892), 'mae_count': np.float64(9.36109991831749), 'mae_naive': np.float64(11.0506329113924), 'mase': np.float64(0.8471098436965431)}
+Model A AR(2) validation (t=19, train-subs): {'n': 628, 'rmse_log': np.float64(0.5934411576170406), 'rmse_count': np.float64(20.523614494032643), 'mae_count': np.float64(8.004207551709062), 'mae_naive': np.float64(9.409235668789808), 'mase': np.float64(0.8506756375822121)}
+Model A AR(2) validation (t=19, holdout-subs): {'n': 158, 'rmse_log': np.float64(0.5634615720311886), 'rmse_count': np.float64(23.779761239208465), 'mae_count': np.float64(9.234607507717318), 'mae_naive': np.float64(11.0506329113924), 'mase': np.float64(0.8356632223478447)}
+
+======================================================================
+MODEL B -- dynamic panel + covariates + month effects
+======================================================================
+--- B, OLS within (entity+month FE) -- BIASED (Nickell), for bracket check ---
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:                      y   R-squared:                        0.0069
+Estimator:                   PanelOLS   R-squared (Between):              0.0748
+No. Observations:                6600   R-squared (Within):               0.0067
+Date:                Mon, Aug 24 2026   R-squared (Overall):              0.2042
+Time:                        23:39:42   Log-likelihood                   -4039.1
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      5.8973
+Entities:                         599   P-value                           0.0000
+Avg Obs:                       11.018   Distribution:                  F(7,5979)
+Min Obs:                       1.0000                                           
+Max Obs:                       16.000   F-statistic (robust):             95.256
+                                        P-value                           0.0000
+Time periods:                      16   Distribution:                  F(7,5979)
+Avg Obs:                       412.50                                           
+Min Obs:                       384.00                                           
+Max Obs:                       441.00                                           
+                                                                                
+                                  Parameter Estimates                                   
+========================================================================================
+                      Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+----------------------------------------------------------------------------------------
+const                    2.4748     0.1139     21.724     0.0000      2.2515      2.6982
+y_l1                     0.0677     0.0251     2.6972     0.0070      0.0185      0.1168
+y_l2                     0.0562     0.0235     2.3917     0.0168      0.0101      0.1024
+ln_p50_l1               -0.0031     0.0088    -0.3528     0.7243     -0.0203      0.0141
+avg_deal_size_l1         0.0092     0.0057     1.6114     0.1071     -0.0020      0.0204
+exporter_churn_l1       -0.0137     0.0387    -0.3540     0.7234     -0.0895      0.0621
+destination_count_l1    -0.0008     0.0013    -0.6196     0.5355     -0.0034      0.0018
+price_spread_l1        1.33e-07   6.75e-09     19.698     0.0000   1.197e-07   1.462e-07
+========================================================================================
+
+F-test for Poolability: 5.1568
+P-value: 0.0000
+Distribution: F(613,5979)
+
+Included effects: Entity, Time
+
+--- Pooled OLS AR(2) (no FE) -- BIASED UP, for bracket check ---
+                          PooledOLS Estimation Summary                          
+================================================================================
+Dep. Variable:                      y   R-squared:                        0.8853
+Estimator:                  PooledOLS   R-squared (Between):              0.9961
+No. Observations:                9348   R-squared (Within):              -0.4196
+Date:                Mon, Aug 24 2026   R-squared (Overall):              0.8853
+Time:                        23:39:43   Log-likelihood                   -8915.2
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                   3.605e+04
+Entities:                         628   P-value                           0.0000
+Avg Obs:                       14.885   Distribution:                  F(2,9345)
+Min Obs:                       2.0000                                           
+Max Obs:                       16.000   F-statistic (robust):          5.835e+04
+                                        P-value                           0.0000
+Time periods:                      16   Distribution:                  F(2,9345)
+Avg Obs:                       584.25                                           
+Min Obs:                       439.00                                           
+Max Obs:                       628.00                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.0884     0.0060     14.803     0.0000      0.0767      0.1001
+y_l1           0.4906     0.0090     54.271     0.0000      0.4729      0.5084
+y_l2           0.4695     0.0093     50.475     0.0000      0.4513      0.4877
+==============================================================================
+
+--- B, Arellano-Bond difference GMM (bias-corrected) ---
+                          IV-GMM Estimation Summary                           
+==============================================================================
+Dep. Variable:                     dy   R-squared:                     -4.0055
+Estimator:                     IV-GMM   Adj. R-squared:                -4.0241
+No. Observations:                5121   F-statistic:                    4073.8
+Date:                Mon, Aug 24 2026   P-value (F-stat)                0.0000
+Time:                        23:39:43   Distribution:                 chi2(19)
+Cov. Estimator:             clustered                                         
+                                                                              
+                                   Parameter Estimates                                    
+==========================================================================================
+                        Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------------------
+const                      0.3207     0.2082     1.5405     0.1234     -0.0873      0.7288
+ln_p50_l1_d               -0.0486     0.0371    -1.3114     0.1897     -0.1213      0.0241
+avg_deal_size_l1_d         0.0819     0.0456     1.7972     0.0723     -0.0074      0.1713
+exporter_churn_l1_d        0.0767     0.2682     0.2859     0.7750     -0.4489      0.6023
+destination_count_l1_d     0.1147     0.0684     1.6762     0.0937     -0.0194      0.2488
+price_spread_l1_d       6.436e-07  1.732e-07     3.7164     0.0002   3.042e-07    9.83e-07
+dmonth_7                  -0.6426     0.3562    -1.8042     0.0712     -1.3407      0.0555
+dmonth_8                  -0.1041     0.1761    -0.5911     0.5545     -0.4493      0.2411
+dmonth_9                  -0.1860     0.1274    -1.4601     0.1443     -0.4358      0.0637
+dmonth_10                 -0.5739     0.3259    -1.7611     0.0782     -1.2127      0.0648
+dmonth_11                 -0.3335     0.2144    -1.5558     0.1198     -0.7536      0.0866
+dmonth_12                 -0.3449     0.2328    -1.4817     0.1384     -0.8012      0.1113
+dmonth_13                 -0.4950     0.2731    -1.8125     0.0699     -1.0304      0.0403
+dmonth_14                 -0.3808     0.2614    -1.4569     0.1451     -0.8931      0.1315
+dmonth_15                 -0.2235     0.2174    -1.0277     0.3041     -0.6496      0.2027
+dmonth_16                 -0.4467     0.1904    -2.3457     0.0190     -0.8199     -0.0734
+dmonth_17                 -0.3567     0.2867    -1.2440     0.2135     -0.9187      0.2053
+dmonth_18                 -0.1677     0.1573    -1.0661     0.2864     -0.4759      0.1406
+dy1                       -2.7449     1.4829    -1.8510     0.0642     -5.6513      0.1615
+dy2                        0.4595     0.1417     3.2430     0.0012      0.1818      0.7371
+==========================================================================================
+
+Endogenous: dy1, dy2
+Instruments: y_l3, y_l4
+GMM Covariance
+Debiased: False
+Clustered (One-way)
+Num Clusters: 552
+Instrument count: 20, N (entities): 552, N (obs): 5121
+Hansen/J p-value: nan (near 1.00 = too many instruments, red flag)
+  AR(1) serial-correlation test on differenced residuals: r=-0.378, p=0.0000  <- expect significant
+  AR(2) serial-correlation test on differenced residuals: r=-0.123, p=0.0000  <- expect INSIGNIFICANT
+
+Bracket check on phi1 (AR(1) coefficient):
+  pooled OLS (upward biased):  0.4906
+  FE-OLS (downward biased):    0.0677
+  GMM (bias-corrected):        -2.7449
+  GMM within [FE-OLS, pooled OLS]: False
+
+Stationarity (B, GMM): phi1+phi2<1=True, phi2-phi1<1=False, |phi2|<1=True -> VIOLATED
+
+GMM diagnostics reliable: False
+GMM unstable at T=20 (order condition forces down to a single usable target period here -> exactly-identified, huge SEs, stationarity violated). Falling back to OLS-within per the spec's own contingency: report Model B via the FE-OLS estimate and flag the ~10-15% downward (Nickell) bias on phi rather than trust the fragile GMM point estimate.
+
+======================================================================
+MODEL C -- Poisson pseudo-MLE (PPML), substance FE, clustered SE
+======================================================================
+Converged: True  N obs: 9542  entities: 626
+  y_l1: coef=0.0682  clustered SE=0.0233  p=3.441e-03
+Note: coef is a Poisson elasticity on log1p(count_t-1), NOT comparable in level to the OLS phi1 in A/B -- the link function differs. Compare A and C on forecast error, not on coefficients.
+Model C validation (t=19, train-subs): {'n': 633, 'rmse_log': 0.6131753041003087, 'rmse_count': 20.160490485661448, 'mae_count': 7.877142911382986, 'mae_naive': 9.342812006319114, 'mase': 0.8431233450972997, 'mean_signed_err': -2.823225937259258, 'total_pred': 30754.89798171489, 'total_actual': 32542.0}
+Model C validation (t=19, holdout-subs): {'n': 158, 'rmse_log': 0.5718240658578458, 'rmse_count': 23.316431347975485, 'mae_count': 8.995233431377716, 'mae_naive': 11.050632911392405, 'mase': 0.8140016507203203, 'mean_signed_err': -4.120246960550369, 'total_pred': 10660.000980233042, 'total_actual': 11311.0}
+
+======================================================================
+MODEL D -- Arellano-Bond difference GMM, AR(1) spec, instruments y_l2/y_l3
+======================================================================
+                          IV-GMM Estimation Summary                           
+==============================================================================
+Dep. Variable:                     dy   R-squared:                      0.0248
+Estimator:                     IV-GMM   Adj. R-squared:                 0.0246
+No. Observations:                8092   F-statistic:                    0.8316
+Date:                Mon, Aug 24 2026   P-value (F-stat)                0.3618
+Time:                        23:39:43   Distribution:                  chi2(1)
+Cov. Estimator:             clustered                                         
+                                                                              
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.0027     0.0029     0.9365     0.3490     -0.0030      0.0085
+dy1           -0.0257     0.0281    -0.9119     0.3618     -0.0808      0.0295
+==============================================================================
+
+Endogenous: dy1
+Instruments: y_l2, y_l3
+GMM Covariance
+Debiased: False
+Clustered (One-way)
+Num Clusters: 625
+N obs: 8092, entities: 625, obs per entity: 12.95 (model B's GMM got 1.00)
+Instrument count: 3
+First-stage F on excluded instruments: 1508.63  (<10 = weak; this is the test model B could not run)
+Hansen/J: stat=1.8345, df=Expected, p=0.1756  (overidentified by 1 -- computable, unlike model B)
+  AR(1) serial-correlation on differenced residuals: r=-0.4834, p=0.0000  <- expect significant
+  AR(2) serial-correlation on differenced residuals: r=0.0062, p=0.6076  <- expect INSIGNIFICANT
+
+Bracket check on phi1:
+  pooled OLS (biased up):   +0.4906
+  FE-OLS (biased down):     +0.0677
+  Model A AR(1) FE-OLS:     +0.0222
+  Model D GMM (corrected):  -0.0257
+  D within [FE-OLS, pooled OLS]: False
+  Implied Nickell bias in Model A: +0.0479
+
+Model D validation (t=19, train-subs): {'n': 633, 'rmse_log': np.float64(0.6013513193554937), 'rmse_count': np.float64(20.64923444078693), 'mae_count': np.float64(8.097051949217375), 'mae_naive': np.float64(9.342812006319114), 'mase': np.float64(0.866661123411329)}
+Model D validation (t=19, holdout-subs): {'n': 158, 'rmse_log': np.float64(0.5819751793461352), 'rmse_count': np.float64(24.118026985746837), 'mae_count': np.float64(9.484344457392753), 'mae_naive': np.float64(11.0506329113924), 'mase': np.float64(0.8582625568545565)}
+
+======================================================================
+BENCHMARKS -- naive & drift, t=20 (test), all substances with history
+======================================================================
+Naive MAE (count scale): 8.712
+Drift MAE (count scale): 19.655
+
+Model A (AR(1)) test (t=20): {'n': 791, 'rmse_log': np.float64(0.6481542767243361), 'rmse_count': np.float64(15.893412213550983), 'mae_count': np.float64(7.480502761490559), 'mae_naive': np.float64(8.711757269279394), 'mase': np.float64(0.8586674915598653)}
+Model B (OLS-within fallback) validation (t=19): {'n': 554, 'rmse_log': np.float64(0.540570062068319), 'rmse_count': np.float64(25.353319586323728), 'mae_count': np.float64(11.034986725896298), 'mae_naive': np.float64(13.05234657039711), 'mase': np.float64(0.8454408306107799)}
+Model B (OLS-within fallback, GMM diagnostics failed) test (t=20): {'n': 558, 'rmse_log': np.float64(0.5844529880006415), 'rmse_count': np.float64(18.08587412084216), 'mae_count': np.float64(9.564802168037964), 'mae_naive': np.float64(11.605734767025089), 'mase': np.float64(0.824144473404136)}
+Model C (PPML) test (t=20): {'n': 791, 'rmse_log': 0.6689566193336792, 'rmse_count': 15.58150725020984, 'mae_count': 7.463144678340618, 'mae_naive': 8.711757269279394, 'mase': 0.8566750022590957, 'mean_signed_err': -0.3544691109303649, 'total_pred': 41677.61493325408, 'total_actual': 41958.0}
+Model D (AB-GMM, bias-corrected) test (t=20): {'n': 791, 'rmse_log': np.float64(0.6569640502691175), 'rmse_count': np.float64(16.25301818280819), 'mae_count': np.float64(7.640405039269591), 'mae_naive': np.float64(8.711757269279394), 'mase': np.float64(0.877022258897438)}
+
+Retransformation-bias check on the test month (the defect Model C targets) --
+mean signed error, negative = forecasting LOW:
+  actual total          : 41958
+  Model A total / signed: 40664 / -1.635
+  Model C total / signed: 41678 / -0.354
+Model A abs error by substance-size decile (t=20, 0=smallest):
+size_decile
+0     1.437859
+1     1.388223
+2     2.121454
+3     2.714054
+4     3.549056
+5     5.819766
+6     9.101063
+7    16.367431
+8    32.091383
+Name: abs_err_a, dtype: float64
+
+

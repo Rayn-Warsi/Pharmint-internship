@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PharmInt Forecast Models</title>
+<style>
+  :root {
+    --paper: #faf9f6;
+    --ink: #1f2225;
+    --muted: #5c5f63;
+    --rule: #e3e0d8;
+    --accent: #3b5ba5;
+    --teal: #2f7d6e;
+    --amber: #a9762a;
+    --code-bg: #f2f0ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --paper: #16181b; --ink: #e6e4df; --muted: #9a9da2; --rule: #2b2e32;
+      --accent: #7ea0e0; --teal: #5cc0ac; --amber: #d9a44e; --code-bg: #1e2125;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 44px 28px 64px; }
+  header { border-bottom: 2px solid var(--ink); padding-bottom: 16px; margin-bottom: 6px; }
+  h1 { font: 600 27px/1.15 Georgia, "Times New Roman", serif; margin: 0 0 6px; letter-spacing: -0.01em; }
+  .sub { color: var(--muted); font-size: 13.5px; margin: 0; }
+  h2 {
+    font: 600 19px/1.25 Georgia, serif; margin: 30px 0 8px; padding-top: 4px;
+    letter-spacing: -0.01em; border-top: 1px solid var(--rule); padding-top: 14px;
+  }
+  h2:first-of-type { border-top: none; padding-top: 0; }
+  h3 { font: 600 14px/1.3 -apple-system, sans-serif; margin: 16px 0 4px; color: var(--accent); }
+  p { margin: 7px 0; font-size: 14.5px; }
+  .lead { color: var(--muted); font-size: 14.5px; }
+  code, .mono { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
+  code { background: var(--code-bg); padding: 1px 5px; border-radius: 3px; font-size: 13px; }
+  .eyebrow {
+    font: 600 10.5px/1 -apple-system, sans-serif; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--accent); margin: 0 0 3px;
+  }
+  .formula {
+    background: var(--code-bg); border: 1px solid var(--rule); border-radius: 6px;
+    padding: 8px 12px; margin: 8px 0; font-size: 13px; font-family: ui-monospace, monospace;
+    overflow-x: auto;
+  }
+  table { border-collapse: collapse; width: 100%; margin: 10px 0; font-size: 13px; }
+  th, td { text-align: left; padding: 5px 10px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  th { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; font-family: ui-monospace, monospace; }
+  .note {
+    border-left: 3px solid var(--amber); background: color-mix(in srgb, var(--amber) 8%, transparent);
+    padding: 8px 12px; margin: 10px 0; border-radius: 0 5px 5px 0; font-size: 13px;
+  }
+  .note b { color: var(--amber); }
+  .card {
+    border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; margin: 10px 0 16px;
+  }
+  .tag {
+    display: inline-block; font: 600 10px/1 -apple-system, sans-serif; text-transform: uppercase;
+    letter-spacing: 0.06em; padding: 3px 7px; border-radius: 4px; margin-left: 6px; vertical-align: middle;
+    background: color-mix(in srgb, var(--teal) 15%, transparent); color: var(--teal);
+  }
+  ul { padding-left: 20px; margin: 6px 0; font-size: 14.5px; }
+  li { margin: 3px 0; }
+  hr { border: none; border-top: 1px solid var(--rule); margin: 26px 0; }
+  footer { color: var(--muted); font-size: 12px; margin-top: 6px; }
+  @media print {
+    body { background: #fff; color: #000; }
+    .wrap { max-width: 100%; padding: 0; }
+    h2 { page-break-after: avoid; border-top: none; }
+    .card, table { page-break-inside: avoid; }
+    a { color: #000; text-decoration: none; }
+    header { border-color: #000; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>PharmInt Forecast Models</h1>
+  <p class="sub">Reference guide to the standalone forecasting models &mdash; drug-substance &times; month panel, T=20 (Jan 2023&ndash;Aug 2024), target = next month's transaction count. Routing/blend models (Mixed A/C, Mixed D/C) are covered elsewhere and omitted here.</p>
+</header>
+
+<h2>Shared setup</h2>
+<p class="lead">All models predict <code>transaction_count</code> for a substance one month ahead, using its own lagged counts and (for some models) covariates: median unit price, average deal size, exporter churn, destination count, and price spread. Most fit on <code>log1p(count)</code> and back-transform with <code>expm1</code>; a few work on counts directly, which turns out to matter (see Model C). Every model uses substance-specific intercepts so a 200-shipment/month generic and a 3-shipment/month niche API aren't compared on the same baseline.</p>
+
+<h2>Model A &mdash; AR(1) / AR(2), substance fixed effects<span class="tag">econometric</span></h2>
+<div class="formula">y_dt = &alpha;_d + &phi;&#8321;&middot;y_{d,t-1} (+ &phi;&#8322;&middot;y_{d,t-2}) + &epsilon;_dt</div>
+<p>The benchmark. A linear autoregression of each substance's own log-count history on itself, with a per-substance intercept <code>&alpha;_d</code> absorbing its baseline size. Estimated by within (fixed-effects) OLS: subtract each substance's mean before fitting, so the slope <code>&phi;</code> is identified purely from month-to-month movement, pooled across all substances (no single substance has enough history to estimate its own <code>&phi;</code>). Both AR(1) and AR(2) are fit and compared; AR(1) is the version carried forward.</p>
+<div class="note"><b>Known bias.</b> The within transform mechanically correlates the lagged term with the residual (Nickell bias), pulling <code>&phi;</code> toward zero more than the truth warrants &mdash; worse the shorter the panel. Model D exists to correct this.</div>
+
+<h2>Model B &mdash; dynamic panel with covariates + month effects<span class="tag">econometric</span></h2>
+<div class="formula">y_dt = &alpha;_d + &lambda;_t + &phi;&#8321;&middot;y_{d,t-1} + &phi;&#8322;&middot;y_{d,t-2} + &beta;'X_{d,t-1} + &epsilon;_dt</div>
+<p>Model A plus two additions: month effects <code>&lambda;_t</code> (absorb anything hitting every substance at once &mdash; a port disruption, a rupee move) and lagged covariates <code>X</code> (price, deal size, exporter churn, destinations, price spread). Designed to be estimated by Arellano&ndash;Bond GMM (see Model D) since a lagged dependent variable plus fixed effects biases plain OLS either direction &mdash; but in practice the GMM version is unstable here (weak/exact-identified instruments), so what's <em>reported</em> as Model B is the FE-OLS fit with its bias flagged rather than a fragile GMM point estimate.</p>
+
+<h2>Model C &mdash; PPML<span class="tag">econometric</span></h2>
+<div class="formula">E[count_dt | &middot;] = exp( &alpha;_d + &phi;&#8321;&middot;y_{d,t-1} )</div>
+<p><b>PPML = Poisson Pseudo-Maximum-Likelihood.</b> It fits a Poisson-shaped regression (mean = exp(linear predictor)) to the count directly, but doesn't actually assume the data <em>are</em> Poisson-distributed &mdash; "pseudo" because it's used as a quasi-likelihood: the estimator stays consistent as long as the conditional <em>mean</em> is correctly specified, even if the true variance is very different from a Poisson's (which it is here &mdash; shipment counts are far more dispersed). This is the standard fix for exactly the problem Models A/B/D have: fitting <code>log1p(count)</code> and inverting with <code>expm1</code> doesn't recover the true mean under skew (Jensen's inequality bites), so those models forecast systematically low. PPML also needs no <code>+1</code> offset for the zero-transaction months, which A/B/D's <code>log1p</code> requires and which is itself an arbitrary tuning choice.</p>
+<div class="note">PPML fixes <em>scale and bias</em>, not the dynamic-panel bias &mdash; it still carries the same Nickell-type bias as A and B on <code>&phi;&#8321;</code>. Use C when the total (aggregate forecast) matters; use D when the per-substance ranking matters.</div>
+
+<h2>Model D &mdash; Arellano&ndash;Bond difference GMM, corrected<span class="tag">econometric</span></h2>
+<div class="formula">&Delta;y_dt = &phi;&#8321;&middot;&Delta;y_{d,t-1} + &Delta;&epsilon;_dt&nbsp;&nbsp;&nbsp;instrumented by y_{d,t-2}</div>
+<p><b>GMM = Generalized Method of Moments.</b> Rather than maximizing a likelihood or minimizing squared error directly, GMM picks parameters that make a set of chosen "moment conditions" &mdash; here, that an instrument is uncorrelated with the error &mdash; as close to zero as the data allow. It's the right tool when a variable you'd like to use as a predictor (the lagged count) is itself correlated with the error term, which is exactly Model A's Nickell-bias problem.</p>
+<p>Mechanically: first-difference the equation to eliminate the fixed effect <code>&alpha;_d</code> without inducing the within-transform correlation, then instrument the endogenous differenced lag with an even-older level (<code>y_{t-2}</code>) that correlates with the regressor but not with the new error. This is the same idea as Model A, but with the bias that A leaves in deliberately removed.</p>
+<div class="note">On this panel, <code>&phi;&#8321;</code> for D is <b>statistically indistinguishable from zero</b> &mdash; the central empirical finding: month-to-month transaction counts carry no exploitable pooled momentum once the bias is corrected. A's negative <code>&phi;&#8321;</code> is mostly that same bias, not real information.</div>
+
+<h2>The tree/ML models</h2>
+<p>Models E, F and G all use <b>gradient boosting</b>: an ensemble of shallow decision trees built one at a time, where each new tree is fit to the errors the ensemble so far still gets wrong. Unlike the linear models above, boosted trees can pick up nonlinear interactions between features (e.g. "churn only matters when price spread is also high") without anyone specifying that interaction by hand.</p>
+
+<div class="card">
+<h3>Model E &mdash; GBM<span class="tag">ML</span></h3>
+<p>A gradient-boosted tree ensemble (XGBoost), used as a direct, standalone regressor on the same lag/covariate features Models A&ndash;D use &mdash; no linear-model scaffolding underneath it. Included mainly as a baseline for "how far can raw ML get with no econometric structure." Answer on this panel: not very far &mdash; it performs worst of the group, consistent with the general rule that 20 monthly observations per substance is a short sequence for a model with no built-in notion of what a lag or a fixed effect is; it has to learn those patterns from scratch.</p>
+</div>
+
+<div class="card">
+<h3>Model F &mdash; GMM + XGBoost residual correction<span class="tag">ML + econometric</span></h3>
+<p><b>XGBoost</b> ("Extreme Gradient Boosting") is a specific, heavily optimized gradient-boosting implementation &mdash; regularized to resist overfitting and fast on tabular data. Here it isn't predicting the target directly; it's trained on <b>Model D's own leftover residuals</b> (the GMM prediction's errors, on the log scale) as a function of the same lag/covariate features. The idea: if the linear GMM model is systematically wrong in some describable way (e.g. it under-predicts for high-churn substances), XGBoost can learn that pattern and the correction gets added back onto the GMM's forecast. So Model F = Model D's forecast + a learned error correction, not a replacement for it.</p>
+</div>
+
+<div class="card">
+<h3>Model G &mdash; GMM + XGBoost + LightGBM ensemble<span class="tag">ML + econometric</span></h3>
+<p><b>LightGBM</b> is another gradient-boosting framework, similar in spirit to XGBoost but built around histogram-binned features and leaf-wise (rather than level-wise) tree growth, which makes it faster on larger data and sometimes finds different splits than XGBoost on the same problem. Model G fits three predictors independently &mdash; the GMM log-linear model, XGBoost, and LightGBM (the latter two as direct count regressors, same features as Model E) &mdash; and simply <b>averages</b> their three predictions on the count scale. It currently scores best of every standalone model here: the average smooths out each individual model's idiosyncratic errors better than any one of them alone.</p>
+</div>
+
+<div class="card">
+<h3>"Model F" &mdash; LSTM<span class="tag">ML</span></h3>
+<p><b>LSTM (Long Short-Term Memory)</b> is a recurrent neural-network architecture with gated memory cells designed to learn patterns across a sequence over time, rather than treating each row independently the way a tree model does. Here, each substance's month-by-month count history is fed in as a sequence. It's included as the "deep learning" option, with the caveat &mdash; stated up front in its own code &mdash; that a 20-month-per-substance sequence is short for a model class that typically wants much longer sequences to find its footing; that shows up in its results, currently the weakest of all nine models.</p>
+<div class="note"><b>Naming collision, not a typo:</b> this LSTM model and the GMM+XGBoost model above are both internally labeled "Model F" &mdash; they were built in separate scripts that each picked the next free letter independently. The comparison table disambiguates them as <code>Model F (GMM+XGB residual)</code> and <code>Model F (LSTM)</code>.</div>
+</div>
+
+<footer>
+  Full diagnostics (Hansen J, first-stage F, R&sup2;, signed error, per-decile breakdowns) live in <code>Forecasted results/model_comparision.xlsx</code>. Model definitions: <code>Models/model_ab.py</code> (A/B/C/D), <code>Models/model_gbm.py</code> (E), <code>Models/model_ensemble.py</code> (F/G), <code>Models/model_lstm.py</code> (LSTM).
+</footer>
+
+</div>
+</body>
+</html>

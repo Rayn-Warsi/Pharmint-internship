@@ -1,0 +1,115 @@
+Country panel: 406722 rows, 27003 drug x country pairs, T=20
+Train pairs: 21603, holdout pairs: 5400
+
+Tier 1 (consecutive4 -- full A/B/C/D incl. GMM instruments): 6432
+Tier 2/3 (thin pairs, FE-OLS/PPML + fallback): 20571
+
+======================================================================
+MODEL A -- AR(1), pair fixed effects, clustered SE
+======================================================================
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:                      y   R-squared:                     6.474e-05
+Estimator:                   PanelOLS   R-squared (Between):             -0.0009
+No. Observations:              256174   R-squared (Within):            6.474e-05
+Date:                Mon, Aug 24 2026   R-squared (Overall):              0.0100
+Time:                        23:40:11   Log-likelihood                -1.658e+05
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      15.260
+Entities:                       20464   P-value                           0.0001
+Avg Obs:                       12.518   Distribution:                F(1,235709)
+Min Obs:                       1.0000                                           
+Max Obs:                       16.000   F-statistic (robust):             4.3128
+                                        P-value                           0.0378
+Time periods:                      16   Distribution:                F(1,235709)
+Avg Obs:                    1.601e+04                                           
+Min Obs:                       8443.0                                           
+Max Obs:                    2.046e+04                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.4894     0.0020     249.88     0.0000      0.4856      0.4933
+y_l1           0.0076     0.0037     2.0767     0.0378      0.0004      0.0147
+==============================================================================
+
+F-test for Poolability: 8.9243
+P-value: 0.0000
+Distribution: F(20463,235709)
+
+Included effects: Entity
+======================================================================
+MODEL B -- dynamic panel + covariates + month effects, FE-OLS (delivered estimator per spec Sec.3.5)
+======================================================================
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:                      y   R-squared:                        0.0038
+Estimator:                   PanelOLS   R-squared (Between):             -0.4246
+No. Observations:               57346   R-squared (Within):               0.0037
+Date:                Mon, Aug 24 2026   R-squared (Overall):              0.1096
+Time:                        23:40:12   Log-likelihood                -4.999e+04
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      29.825
+Entities:                       10137   P-value                           0.0000
+Avg Obs:                       5.6571   Distribution:                 F(6,47188)
+Min Obs:                       1.0000                                           
+Max Obs:                       16.000   F-statistic (robust):             8.8788
+                                        P-value                           0.0000
+Time periods:                      16   Distribution:                 F(6,47188)
+Avg Obs:                       3584.1                                           
+Min Obs:                       3224.0                                           
+Max Obs:                       3977.0                                           
+                                                                                
+                                 Parameter Estimates                                 
+=====================================================================================
+                   Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+-------------------------------------------------------------------------------------
+const                 1.1976     0.0269     44.512     0.0000      1.1449      1.2503
+y_l1                  0.0516     0.0104     4.9574     0.0000      0.0312      0.0720
+y_l2                  0.0489     0.0092     5.3436     0.0000      0.0310      0.0668
+ln_p50_l1            -0.0048     0.0029    -1.6161     0.1061     -0.0105      0.0010
+avg_deal_size_l1     -0.0040     0.0022    -1.8341     0.0667     -0.0083      0.0003
+exporter_churn_l1     0.0449     0.0288     1.5622     0.1183     -0.0114      0.1013
+price_spread_l1    -1.58e-06  4.845e-07    -3.2608     0.0011   -2.53e-06  -6.302e-07
+=====================================================================================
+
+F-test for Poolability: 2.7064
+P-value: 0.0000
+Distribution: F(10151,47188)
+
+Included effects: Entity, Time
+======================================================================
+MODEL C -- Poisson pseudo-MLE (PPML), pair FE, clustered SE
+======================================================================
+Converged: True  N obs: 256174  entities: 15108
+======================================================================
+MODEL D -- Arellano-Bond difference GMM, AR(1) spec, instruments y_l2/y_l3
+======================================================================
+                          IV-GMM Estimation Summary                           
+==============================================================================
+Dep. Variable:                     dy   R-squared:                     -0.0115
+Estimator:                     IV-GMM   Adj. R-squared:                -0.0115
+No. Observations:              201724   F-statistic:                    4.0349
+Date:                Mon, Aug 24 2026   P-value (F-stat)                0.0446
+Time:                        23:40:13   Distribution:                  chi2(1)
+Cov. Estimator:             clustered                                         
+                                                                              
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.0018     0.0005     3.3971     0.0007      0.0007      0.0028
+dy1            0.0115     0.0057     2.0087     0.0446      0.0003      0.0228
+==============================================================================
+
+Endogenous: dy1
+Instruments: y_l2, y_l3
+GMM Covariance
+Debiased: False
+Clustered (One-way)
+Num Clusters: 19153
+N obs: 201724, entities: 19153, obs per entity: 10.53
+Hansen/J p-value: 0.2469
+phi1 (bias-corrected): +0.0115  p=0.0446
+
