@@ -12,8 +12,8 @@ MODEL A -- AR(1), pair fixed effects, clustered SE
 Dep. Variable:                      y   R-squared:                     6.474e-05
 Estimator:                   PanelOLS   R-squared (Between):             -0.0009
 No. Observations:              256174   R-squared (Within):            6.474e-05
-Date:                Mon, Aug 24 2026   R-squared (Overall):              0.0100
-Time:                        23:40:11   Log-likelihood                -1.658e+05
+Date:                Sat, Aug 29 2026   R-squared (Overall):              0.0100
+Time:                        20:26:41   Log-likelihood                -1.658e+05
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      15.260
 Entities:                       20464   P-value                           0.0001
@@ -47,8 +47,8 @@ MODEL B -- dynamic panel + covariates + month effects, FE-OLS (delivered estimat
 Dep. Variable:                      y   R-squared:                        0.0038
 Estimator:                   PanelOLS   R-squared (Between):             -0.4246
 No. Observations:               57346   R-squared (Within):               0.0037
-Date:                Mon, Aug 24 2026   R-squared (Overall):              0.1096
-Time:                        23:40:12   Log-likelihood                -4.999e+04
+Date:                Sat, Aug 29 2026   R-squared (Overall):              0.1096
+Time:                        20:26:42   Log-likelihood                -4.999e+04
 Cov. Estimator:             Clustered                                           
                                         F-statistic:                      29.825
 Entities:                       10137   P-value                           0.0000
@@ -91,8 +91,8 @@ MODEL D -- Arellano-Bond difference GMM, AR(1) spec, instruments y_l2/y_l3
 Dep. Variable:                     dy   R-squared:                     -0.0115
 Estimator:                     IV-GMM   Adj. R-squared:                -0.0115
 No. Observations:              201724   F-statistic:                    4.0349
-Date:                Mon, Aug 24 2026   P-value (F-stat)                0.0446
-Time:                        23:40:13   Distribution:                  chi2(1)
+Date:                Sat, Aug 29 2026   P-value (F-stat)                0.0446
+Time:                        20:26:43   Distribution:                  chi2(1)
 Cov. Estimator:             clustered                                         
                                                                               
                              Parameter Estimates                              

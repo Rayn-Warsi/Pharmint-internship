@@ -276,15 +276,41 @@ def main_country():
         resid_hat = xgb_resid_c.predict(d[FEAT_COLS_COUNTRY])
         return np.clip(np.expm1(gmm_log + resid_hat), 0, None)
 
+    # ---------------- Model G (country grain) -- same 3-way GMM+XGB+LGBM
+    # ensemble as the drug-grain build, now trained/predicted at the drug x
+    # country pair grain so the Forecast Explorer can offer it per market. ----------------
+    out("=" * 70)
+    out("MODEL G (country grain) -- GMM + XGBoost + LightGBM ensemble")
+    out("=" * 70)
+    xgb_direct_c = XGBRegressor(random_state=SEED, n_estimators=300, max_depth=3,
+                                 learning_rate=0.05, subsample=0.8, colsample_bytree=0.8)
+    xgb_direct_c.fit(d_train[FEAT_COLS_COUNTRY], d_train["y"])
+
+    lgbm_direct_c = LGBMRegressor(random_state=SEED, n_estimators=300, max_depth=3,
+                                   learning_rate=0.05, subsample=0.8, colsample_bytree=0.8, verbose=-1)
+    lgbm_direct_c.fit(d_train[FEAT_COLS_COUNTRY], d_train["y"])
+    out(f"Direct XGBoost and LightGBM regressors (country grain) trained on {len(d_train)} rows, "
+        f"features: {FEAT_COLS_COUNTRY}")
+    out()
+
+    def predict_g_country(d, alpha):
+        gmm_ct = np.clip(np.expm1(gmm_predict_log(d, alpha, phi1_d)), 0, None)
+        xgb_ct = np.clip(np.expm1(xgb_direct_c.predict(d[FEAT_COLS_COUNTRY])), 0, None)
+        lgbm_ct = np.clip(np.expm1(lgbm_direct_c.predict(d[FEAT_COLS_COUNTRY])), 0, None)
+        return (gmm_ct + xgb_ct + lgbm_ct) / 3.0
+
     # ---------------- Test (t=T), pairs with own train-window history ----------------
     alpha_d_v = compute_entity_effects(df, np.array([phi1_d]), ["y_l1"], t_range=(TRAIN_START, TRAIN_END))
     test = df[df["t"] == TEST_T].dropna(subset=["y", "y_l1"]).copy()
     test = test[test["entity"].isin(alpha_d_v.index)]
     pred_f_test = predict_f_country(test, alpha_d_v)
+    pred_g_test = predict_g_country(test, alpha_d_v)
     y_true_ct = test["transaction_count"].to_numpy(dtype=float)
     naive_ct = np.expm1(test["y_l1"].to_numpy(dtype=float))
     score_f = score_counts(y_true_ct, pred_f_test, naive_ct)
+    score_g = score_counts(y_true_ct, pred_g_test, naive_ct)
     out(f"Model F test (t={TEST_T}): {score_f}  oos_r2={oos_r2(y_true_ct, pred_f_test):.4f}")
+    out(f"Model G test (t={TEST_T}): {score_g}  oos_r2={oos_r2(y_true_ct, pred_g_test):.4f}")
     out()
 
     test_out = pd.DataFrame({
@@ -295,6 +321,7 @@ def main_country():
         "n_active_months": test["n_active_months"].values,
         "naive_forecast": np.round(naive_ct, 1),
         "model_f_gmm_xgb_forecast": np.round(pred_f_test, 1),
+        "model_g_ensemble_forecast": np.round(pred_g_test, 1),
         "low_confidence": (test["n_active_months"] < 2).to_numpy(),
     })
     test_out.to_csv("Forecasted results/model_ensemble/model_ensemble_test_t8_country.csv", index=False)
@@ -314,9 +341,11 @@ def main_country():
     no_history = ~last["entity"].isin(alpha_d_full.index)  # single-row-window pairs, no lag at all
     naive_ct_next = last["transaction_count"].to_numpy(dtype=float)
     f_final = naive_ct_next.copy()
+    g_final = naive_ct_next.copy()
     has_hist = last[~no_history]
     if len(has_hist):
         f_final[~no_history.to_numpy()] = predict_f_country(has_hist, alpha_d_full)
+        g_final[~no_history.to_numpy()] = predict_g_country(has_hist, alpha_d_full)
 
     low_confidence = (last["n_active_months"] < 2).to_numpy() | no_history.to_numpy()
     fallback_reason = np.where(no_history.to_numpy(), "single_month_no_lag", "")
@@ -330,6 +359,7 @@ def main_country():
         "n_active_months": last["n_active_months"].values,
         "naive_forecast": np.round(naive_ct_next, 1),
         "model_f_gmm_xgb_forecast": np.round(f_final, 1),
+        "model_g_ensemble_forecast": np.round(g_final, 1),
         "low_confidence": low_confidence,
         "fallback_reason": fallback_reason,
     })
@@ -341,6 +371,18 @@ def main_country():
     with open("Code results/model_ensemble_results_country.txt", "w") as f:
         f.write("\n".join(lines) + "\n")
     out("Saved -> Code results/model_ensemble_results_country.txt")
+
+    # ---------------- Append Model F / Model G rows to the country comparison CSV
+    # (same test set/rows as score_f/score_g above) ----------------
+    cmp_path = "Forecasted results/model_comparision_country.csv"
+    comp_df = pd.read_csv(cmp_path)
+    comp_df = comp_df[~comp_df["model"].isin(["Model F (GMM+XGB residual)", "Model G (GMM+XGB+LGBM ensemble)"])]
+    comp_df.loc[len(comp_df)] = ["Model F (GMM+XGB residual)", score_f["mase"], score_f["rmse_count"],
+                                  score_f["mean_signed_err"], f"n={score_f['n']}"]
+    comp_df.loc[len(comp_df)] = ["Model G (GMM+XGB+LGBM ensemble)", score_g["mase"], score_g["rmse_count"],
+                                  score_g["mean_signed_err"], f"n={score_g['n']}"]
+    comp_df.to_csv(cmp_path, index=False)
+    out(f"Updated -> {cmp_path} with Model F / Model G rows")
 
 
 if __name__ == "__main__":

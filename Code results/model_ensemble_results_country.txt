@@ -7,7 +7,13 @@ MODEL F (country grain) -- Arellano-Bond GMM + XGBoost residual correction
 ======================================================================
 Residual-correction XGBoost trained on 256174 rows, features: ['y_l1', 'y_l2', 'ln_p50_l1', 'avg_deal_size_l1', 'exporter_churn_l1', 'price_spread_l1']
 
+======================================================================
+MODEL G (country grain) -- GMM + XGBoost + LightGBM ensemble
+======================================================================
+Direct XGBoost and LightGBM regressors (country grain) trained on 256174 rows, features: ['y_l1', 'y_l2', 'ln_p50_l1', 'avg_deal_size_l1', 'exporter_churn_l1', 'price_spread_l1']
+
 Model F test (t=20): {'n': 25605, 'rmse_log': 0.47165789462933944, 'rmse_count': 3.7328275138774303, 'mae_count': 1.009825782906917, 'mae_naive': 1.1641476274165201, 'mase': 0.8674379083243294, 'mean_signed_err': -0.23797663517036938, 'total_pred': 34998.608256462685, 'total_actual': 41092.0}  oos_r2=0.7806
+Model G test (t=20): {'n': 25605, 'rmse_log': 0.46687991485372493, 'rmse_count': 3.1793215084248523, 'mae_count': 0.9934938528430061, 'mae_naive': 1.1641476274165201, 'mase': 0.8534088198485363, 'mean_signed_err': -0.3580257841441958, 'total_pred': 31924.749796987868, 'total_actual': 41092.0}  oos_r2=0.8408
 
 Saved -> Forecasted results/model_ensemble/model_ensemble_test_t8_country.csv (25605 rows)
 
