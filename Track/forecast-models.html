@@ -138,6 +138,18 @@
 <div class="note"><b>Naming collision, not a typo:</b> this LSTM model and the GMM+XGBoost model above are both internally labeled "Model F" &mdash; they were built in separate scripts that each picked the next free letter independently. The comparison table disambiguates them as <code>Model F (GMM+XGB residual)</code> and <code>Model F (LSTM)</code>.</div>
 </div>
 
+<h2>Ideas which can be implemented further</h2>
+<p class="lead">Ideas for the Next.js dashboard (<code>dashboard/</code>), roughly in order of value-for-effort. </p>
+<ul>
+  <li><b>Country ranking page</b> &mdash; mirror of Drug Ranking with axes swapped; the country index and per-pair forecasts already support it.</li>
+  <li><b>CSV/JSON export</b> on Forecast Explorer and Rankings &mdash; a Blob + download link, no new dependency.</li>
+  <li><b>Confidence/coverage badges on Rankings</b> &mdash; <code>lowConfidence</code>/<code>fallback</code> are already on every forecast record; surface them as a column so thin-data rows aren't mistaken for real predictions.</li>
+  <li><b>Overlay all 6 models</b> on a single drug/country pair's chart &mdash; the forecast per model is already on <code>ForecastRecord</code>; add a toggle to <code>ForecastChart.tsx</code>.</li>
+  <li><b>"Biggest movers" teaser on the home page</b> &mdash; reuse the Rankings % change computation, show top 3 gainers/decliners without navigating away.</li>
+  <li><b>Auth/accounts</b> &mdash; no multi-user need yet.</li>
+  <li><b>A backend/database</b> &mdash; data is static JSON, regenerated via <code>npm run ingest</code>; adding a DB is premature.</li>
+</ul>
+
 <footer>
   Full diagnostics (Hansen J, first-stage F, R&sup2;, signed error, per-decile breakdowns) live in <code>Forecasted results/model_comparision.xlsx</code>. Model definitions: <code>Models/model_ab.py</code> (A/B/C/D), <code>Models/model_gbm.py</code> (E), <code>Models/model_ensemble.py</code> (F/G), <code>Models/model_lstm.py</code> (LSTM).
 </footer>

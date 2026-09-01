@@ -4,6 +4,7 @@ atlas-credentials.env
 # Generated / dependency directories
 .venv/
 dashboard/node_modules/
+__pycache__/
 
 # Large archives (duplicated data already present elsewhere)
 Data/Data1.zip
