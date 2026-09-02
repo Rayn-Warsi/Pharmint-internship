@@ -138,6 +138,88 @@
 <div class="note"><b>Naming collision, not a typo:</b> this LSTM model and the GMM+XGBoost model above are both internally labeled "Model F" &mdash; they were built in separate scripts that each picked the next free letter independently. The comparison table disambiguates them as <code>Model F (GMM+XGB residual)</code> and <code>Model F (LSTM)</code>.</div>
 </div>
 
+<h2>Seasonal models: is the panel long enough to model an annual cycle yet?</h2>
+<p class="lead">At T=20 months, the two-model spec's own roadmap says seasonality "becomes visible" &mdash; but 20 months is only Jan 2023&ndash;Aug 2024: Jan&ndash;Aug appear twice, Sep&ndash;Dec only once. Two models were built to test whether that's enough, implemented in <code>Models/model_seasonal.py</code>.</p>
+
+<div class="card">
+<h3>Model H &mdash; Fourier-seasonal Arellano-Bond GMM<span class="tag">econometric</span></h3>
+<div class="formula">&Delta;y_dt = &phi;&middot;&Delta;y_{d,t-1} + &gamma;&#8321;&middot;&Delta;sin(2&pi;m_t/12) + &gamma;&#8322;&middot;&Delta;cos(2&pi;m_t/12) + &Delta;&epsilon;_dt</div>
+<p>Model D's spec, plus two deterministic calendar terms &mdash; sine and cosine of calendar month &mdash; added straight into the differenced equation. Because they're known functions of the calendar rather than lagged data, they need no instrumenting, unlike the endogenous lag. This was chosen over 12 separate calendar-month dummies specifically because several months (Sep&ndash;Dec) appear only once in the panel &mdash; too thin to identify a dummy each, but fine for two smooth, pooled coefficients shared across all 792 substances.</p>
+<div class="note"><b>Result:</b> MASE 0.89, about level with Model D's own score &mdash; not a win. The seasonal coefficients aren't statistically significant (p &asymp; 0.17&ndash;0.23). Expected: with under two annual cycles of data, there isn't enough repetition yet to pin down a seasonal effect with confidence. Safe to keep (doesn't hurt), not yet earning its complexity.</div>
+</div>
+
+<div class="card">
+<h3>Model I &mdash; SARIMA<span class="tag">classical time series</span></h3>
+<p><b>SARIMA (Seasonal ARIMA)</b> is the classical approach to this problem: an autoregressive term plus a seasonal autoregressive term at a 12-month lag, fit directly on each series. Unlike every other model here, it is <em>not pooled</em> &mdash; each drug substance gets its own independent fit, so it can't borrow strength across substances the way Models A&ndash;H do. Tried two ways, matching the project's existing pattern of reporting both an aggregate and a per-entity result:</p>
+<ul>
+<li><b>Aggregate</b> &mdash; one SARIMA on the total market (all substances summed per month). <b>MASE 3.81</b> &mdash; nearly 4x worse than doing nothing. The fit itself is a tell: the autoregressive coefficient comes out at 1.01, essentially a unit root (non-stationary), estimated from only 19 monthly observations with a seasonal lag of 12 &mdash; barely 1.6 cycles to find a seasonal pattern in.</li>
+<li><b>Per substance</b> &mdash; one SARIMA per drug substance, only for the ~716 substances with at least 15 months of history (substances below that are excluded from this model's score, not silently defaulted). <b>MASE 1.43</b> &mdash; also worse than naive, for the same reason at even smaller scale: each individual fit has even less data to work with than the aggregate did.</li>
+</ul>
+<div class="note"><b>Included for transparency, not use.</b> Both variants lose to a naive forecast. This isn't a bug in the implementation &mdash; it's the expected result of asking a method built for long single series (SARIMA usually wants several full seasonal cycles, i.e. years of monthly data) to work with 20 months split into either one aggregate series or hundreds of thin per-substance ones. Revisit once the panel covers 2+ full years.</div>
+</div>
+
+<h2>Backtesting: does the model hold up with less data?</h2>
+<p class="lead">All results above use the full T=20 panel. To check whether the models are actually reliable &mdash; or just got lucky with 20 months &mdash; <code>backtesting/run_backtest.py</code> truncates the panel to the first N months and reruns Models A&ndash;D and F/G unmodified (both already size their train/validate/test split off however many months are in the panel, so feeding them a shorter panel <em>is</em> the backtest). Windows tested: 3, 6, 9, 12, 15, 18, 20 months.</p>
+
+<p>At 3 months there isn't enough history for the models' own train/validate/test split to produce a train window at all &mdash; skipped automatically. At 6 months, every model fails outright with <span class="mono">"regressors do not have full column rank"</span>: the GMM instrument matrix needs more history than 6 months gives it. Both are expected, not bugs &mdash; the models need roughly 9+ months before there's enough data for GMM to even run.</p>
+
+<table>
+<thead><tr><th>Training window</th><th class="num">AR(1)</th><th class="num">Model B</th><th class="num">Model C</th><th class="num">Model D</th><th class="num">Model F</th><th class="num">Model G</th></tr></thead>
+<tbody>
+<tr><td>9 months</td><td class="num">0.91</td><td class="num">0.93</td><td class="num">0.90</td><td class="num">0.84</td><td class="num">0.87</td><td class="num">0.83</td></tr>
+<tr><td>12 months</td><td class="num">0.87</td><td class="num">0.90</td><td class="num">0.88</td><td class="num">0.85</td><td class="num">0.88</td><td class="num">0.86</td></tr>
+<tr><td>15 months</td><td class="num">1.03</td><td class="num">1.06</td><td class="num">1.01</td><td class="num">1.02</td><td class="num">1.01</td><td class="num">0.95</td></tr>
+<tr><td>18 months</td><td class="num">0.82</td><td class="num">0.81</td><td class="num">0.83</td><td class="num">0.81</td><td class="num">0.82</td><td class="num">0.76</td></tr>
+<tr><td>20 months</td><td class="num">0.86</td><td class="num">0.82</td><td class="num">0.86</td><td class="num">0.88</td><td class="num">0.89</td><td class="num">0.81</td></tr>
+</tbody>
+</table>
+<p class="lead">MASE, test month, all substances. Below 1.0 beats the naive (repeat-last-month) forecast. Full breakdown, including RMSE on both the log and count scale and a per-model stability (CV%) ranking, is in <code>backtesting/backtest_log.xlsx</code>.</p>
+
+<div class="card">
+<h3>Why every model dips at the 15-month window</h3>
+<p>Every model gets worse at 15 months and better again at 18&ndash;20 &mdash; at first glance that looks like instability. It isn't: it's one weird month for a couple of big drugs, not the models breaking down. Comparing the naive (repeat-last-month) error split by substance size makes this concrete &mdash; the top ~60 substances by volume account for almost all of the count-scale error at every window, and their error specifically spikes at the 15-month test month:</p>
+<table>
+<thead><tr><th>Test month</th><th class="num">Big substances: naive MAE</th></tr></thead>
+<tbody>
+<tr><td>t=9</td><td class="num">50.1</td></tr>
+<tr><td>t=12</td><td class="num">51.2</td></tr>
+<tr><td>t=15</td><td class="num">57.2</td></tr>
+<tr><td>t=18</td><td class="num">55.2</td></tr>
+<tr><td>t=20</td><td class="num">45.7</td></tr>
+</tbody>
+</table>
+<p>MASE and RMSE(count) are both raw-count-scale metrics, so they're dominated by whichever substances have the biggest volumes &mdash; a bulk order or "tender" landing oddly in one substance that month (see the Model D note above on tenders) is enough to drag the whole test month down. It's a property of that one calendar month, not evidence the model degrades with more data.</p>
+</div>
+
+<div class="card">
+<h3>Why RMSE(log) drifts up at 18&ndash;20 months instead</h3>
+<p>RMSE(log) tells a different story because it averages error <em>equally</em> across substances rather than weighting by volume &mdash; so it's dominated by whoever's <em>numerous</em>, not whoever's <em>big</em>. The number of small, thinly-traded substances (previous month's count under 5) keeps growing as the panel gets longer, simply because more products have launched by month 18&ndash;20 than by month 9&ndash;12:</p>
+<table>
+<thead><tr><th>Test month</th><th class="num"># small substances</th><th class="num">Their naive MAE (log scale)</th></tr></thead>
+<tbody>
+<tr><td>t=9</td><td class="num">174</td><td class="num">0.66</td></tr>
+<tr><td>t=12</td><td class="num">207</td><td class="num">0.64</td></tr>
+<tr><td>t=15</td><td class="num">230</td><td class="num">0.63</td></tr>
+<tr><td>t=18</td><td class="num">244</td><td class="num">0.68</td></tr>
+<tr><td>t=20</td><td class="num">237</td><td class="num">0.68</td></tr>
+</tbody>
+</table>
+<p>Each small substance's own log-error stays roughly flat (~0.63&ndash;0.68) at every window &mdash; going from selling 1 unit to 3 is a huge relative move even though it's nothing in real volume, and that's just inherently noisy to call. What changes is there are ~40% more of these substances by t=18&ndash;20, and since RMSE(log) doesn't weight by size, more noisy small substances in the average pulls the number up. No individual substance is being forecast worse &mdash; there are just more hard-to-predict small ones in the mix later on.</p>
+</div>
+
+<div class="note"><b>Takeaway.</b> MASE/RMSE(count) and RMSE(log) are measuring different failure modes &mdash; one calendar month's big-substance volatility vs. a growing population of small, noisy substances &mdash; not disagreeing about whether the model works. Neither swing means the model is flip-flopping in quality; both are structural properties of the data at that window, and both fade back out once the anomalous month or the substance mix normalizes.</div>
+
+<h2>Data pipeline: Excel &rarr; MongoDB &rarr; dashboard</h2>
+<p>Excel and MongoDB serve different ends of the same pipeline, not overlapping roles.</p>
+<div class="formula">1M shipment rows (Data/combined_export_dataset.parquet)
+  &rarr; Code.py (cleaning / mapping / aggregation)
+  &rarr; forecast/history/comparison tables (.csv, "Code results/" + "Forecasted results/")
+  &rarr; dashboard/scripts/ingest.py
+  &rarr; MongoDB Atlas
+  &rarr; Next.js dashboard</div>
+<p><b>Parquet/CSV</b> is the offline exchange format: <code>Code.py</code> reads the ~1M-row source file (a <code>.parquet</code> file) and writes its aggregated outputs as CSVs. Nothing in the running dashboard reads any of these files directly.</p>
+<p><b>MongoDB Atlas</b> is the live datastore. <code>ingest.py</code> loads those CSVs into collections (<code>forecasts</code>, <code>history</code>, <code>drugs</code>, <code>countries</code>, <code>models</code>), and the dashboard queries only this database at runtime. This replaced an earlier static-JSON-bundled-with-the-app approach, so the site's data now refreshes by re-running <code>npm run ingest</code> instead of a redeploy.</p>
+
 <h2>Ideas which can be implemented further</h2>
 <p class="lead">Ideas for the Next.js dashboard (<code>dashboard/</code>), roughly in order of value-for-effort. </p>
 <ul>
@@ -147,11 +229,10 @@
   <li><b>Overlay all 6 models</b> on a single drug/country pair's chart &mdash; the forecast per model is already on <code>ForecastRecord</code>; add a toggle to <code>ForecastChart.tsx</code>.</li>
   <li><b>"Biggest movers" teaser on the home page</b> &mdash; reuse the Rankings % change computation, show top 3 gainers/decliners without navigating away.</li>
   <li><b>Auth/accounts</b> &mdash; no multi-user need yet.</li>
-  <li><b>A backend/database</b> &mdash; data is static JSON, regenerated via <code>npm run ingest</code>; adding a DB is premature.</li>
 </ul>
 
 <footer>
-  Full diagnostics (Hansen J, first-stage F, R&sup2;, signed error, per-decile breakdowns) live in <code>Forecasted results/model_comparision.xlsx</code>. Model definitions: <code>Models/model_ab.py</code> (A/B/C/D), <code>Models/model_gbm.py</code> (E), <code>Models/model_ensemble.py</code> (F/G), <code>Models/model_lstm.py</code> (LSTM).
+  Full diagnostics (Hansen J, first-stage F, R&sup2;, signed error, per-decile breakdowns) live in <code>Forecasted results/model_comparision.xlsx</code>. Model definitions: <code>Models/model_ab.py</code> (A/B/C/D), <code>Models/model_gbm.py</code> (E), <code>Models/model_ensemble.py</code> (F/G), <code>Models/model_lstm.py</code> (LSTM), <code>Models/model_seasonal.py</code> (H/I). Backtest driver: <code>backtesting/run_backtest.py</code>.
 </footer>
 
 </div>

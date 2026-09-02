@@ -13,6 +13,9 @@ dashboard/.zip
 # Editor / IDE
 .idea/
 
+# graphify's semantic cache -- regenerable, not project content
+graphify-out/cache/
+
 # dashboard/ is its own separate git repo, pushed independently
 # to github.com/Rayn-Warsi/Pharma-Export-Demand-Forecasting
 dashboard/

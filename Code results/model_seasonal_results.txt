@@ -1,0 +1,74 @@
+Panel: 14843 rows, 792 substances, T=20
+
+======================================================================
+MODEL H -- Fourier-seasonal Arellano-Bond GMM
+======================================================================
+                          IV-GMM Estimation Summary                           
+==============================================================================
+Dep. Variable:                     dy   R-squared:                      0.0248
+Estimator:                     IV-GMM   Adj. R-squared:                 0.0245
+No. Observations:                8092   F-statistic:                    4.5789
+Date:                Wed, Sep 02 2026   P-value (F-stat)                0.2054
+Time:                        15:51:38   Distribution:                  chi2(3)
+Cov. Estimator:             clustered                                         
+                                                                              
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+const          0.0014     0.0028     0.5107     0.6096     -0.0040      0.0069
+dsin          -0.0136     0.0112    -1.2065     0.2276     -0.0356      0.0085
+dcos          -0.0140     0.0102    -1.3686     0.1711     -0.0341      0.0061
+dy1           -0.0256     0.0281    -0.9112     0.3622     -0.0808      0.0295
+==============================================================================
+
+Endogenous: dy1
+Instruments: y_l2, y_l3
+GMM Covariance
+Debiased: False
+Clustered (One-way)
+Num Clusters: 625
+N obs: 8092, entities: 625
+
+Model H validation (t=19, train-subs): {'n': 633, 'rmse_log': np.float64(0.5992775791356346), 'rmse_count': np.float64(19.789954849696763), 'mae_count': np.float64(7.87810878541064), 'mae_naive': np.float64(9.342812006319114), 'mase': np.float64(0.8432267266088832)}
+Model H validation (t=19, holdout-subs): {'n': 158, 'rmse_log': np.float64(0.5813170002018163), 'rmse_count': np.float64(22.080795419023747), 'mae_count': np.float64(9.081945698411776), 'mae_naive': np.float64(11.0506329113924), 'mase': np.float64(0.8218484652629217)}
+Model H test (t=20): {'n': 791, 'rmse_log': 0.6575131096903407, 'rmse_count': 16.56414552245176, 'mae_count': 7.754639459761411, 'mae_naive': 8.711757269279394, 'mase': 0.890134931457158, 'mean_signed_err': -0.7766297323638295, 'total_pred': 41343.685881700214, 'total_actual': 41958.0}
+
+======================================================================
+MODEL I -- SARIMA, aggregate market total
+======================================================================
+                                     SARIMAX Results                                      
+==========================================================================================
+Dep. Variable:                  transaction_count   No. Observations:                   19
+Model:             SARIMAX(1, 0, 0)x(1, 0, 0, 12)   Log Likelihood                   8.110
+Date:                            Wed, 02 Sep 2026   AIC                            -10.219
+Time:                                    15:51:38   BIC                            -10.844
+Sample:                                         0   HQIC                           -12.720
+                                             - 19                                         
+Covariance Type:                              opg                                         
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+ar.L1          1.0107      0.034     29.526      0.000       0.944       1.078
+ar.S.L12       0.7099      0.418      1.699      0.089      -0.109       1.529
+sigma2         0.0039      0.004      1.109      0.267      -0.003       0.011
+===================================================================================
+Ljung-Box (L1) (Q):                   0.23   Jarque-Bera (JB):                 0.46
+Prob(Q):                              0.63   Prob(JB):                         0.79
+Heteroskedasticity (H):               0.36   Skew:                             0.54
+Prob(H) (two-sided):                  0.53   Kurtosis:                         2.18
+===================================================================================
+
+Warnings:
+[1] Covariance matrix calculated using the outer product of gradients (complex-step).
+Model I (aggregate) test (t=20): {'n': 1, 'rmse_count': 7529.490247270987, 'mae_count': 7529.490247270987, 'mae_naive': 1976.0, 'mase': 3.810470772910419, 'pred': 49487.49024727099, 'actual': 41958.0}
+
+======================================================================
+MODEL I -- SARIMA, per substance (>= 15 months history required)
+======================================================================
+Substances scored: 716 (real SARIMA fit: 716, naive fallback: 0)
+Model I (per-substance, real fits only) test (t=20): {'n': 716, 'rmse_log': 0.7855969399372963, 'rmse_count': 33.13705854264794, 'mae_count': 13.478574610905774, 'mae_naive': 9.418994413407821, 'mase': 1.4309993210866747, 'mean_signed_err': 6.87998015549069, 'total_pred': 46752.06579133133, 'total_actual': 41826.0}
+
+Model H oos_r2: 0.9855
+Model I (per-substance) oos_r2: 0.9467
+
