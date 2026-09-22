@@ -1,0 +1,397 @@
+{
+  "communities": {
+    "0": [
+      "models_model_ab",
+      "models_model_ab_adj_r2",
+      "models_model_ab_ar_diagnostics",
+      "models_model_ab_compute_entity_effects",
+      "models_model_ab_fit_model_a",
+      "models_model_ab_fit_model_b_gmm",
+      "models_model_ab_fit_model_b_ols_within",
+      "models_model_ab_fit_model_d_ab_gmm",
+      "models_model_ab_fit_pooled_ols",
+      "models_model_ab_load_panel",
+      "models_model_ab_load_panel_country",
+      "models_model_ab_main",
+      "models_model_ab_main_country",
+      "models_model_ab_make_entity",
+      "models_model_ab_ppml_pseudo_r2",
+      "models_model_ab_predict_and_score",
+      "models_model_ab_rationale_1",
+      "models_model_ab_rationale_137",
+      "models_model_ab_rationale_278",
+      "models_model_ab_rationale_29",
+      "models_model_ab_rationale_315",
+      "models_model_ab_rationale_352",
+      "models_model_ab_rationale_466",
+      "models_model_ab_score_c",
+      "models_model_ab_score_counts",
+      "models_model_ab_split_substances",
+      "models_model_ab_stationarity",
+      "models_model_ab_train_window",
+      "models_model_ensemble",
+      "models_model_ensemble_build_xy",
+      "models_model_ensemble_gmm_predict_log",
+      "models_model_ensemble_main",
+      "models_model_ensemble_main_country",
+      "models_model_ensemble_rationale_1",
+      "models_model_gbm",
+      "models_model_gbm_build_xy",
+      "models_model_gbm_main",
+      "models_model_gbm_predict_gbm",
+      "models_model_gbm_rationale_1",
+      "models_model_lstm",
+      "models_model_lstm_build_sequences",
+      "models_model_lstm_lstmregressor",
+      "models_model_lstm_lstmregressor_forward",
+      "models_model_lstm_lstmregressor_init",
+      "models_model_lstm_main",
+      "models_model_lstm_predict_lstm",
+      "models_model_lstm_rationale_1"
+    ],
+    "1": [
+      "models_mixed_ac",
+      "models_mixed_ac_main",
+      "models_mixed_ac_mixed_predict",
+      "models_mixed_ac_predict_a_row",
+      "models_mixed_ac_rationale_1",
+      "models_mixed_ac_rationale_29",
+      "models_mixed_ac_rationale_35",
+      "models_mixed_ac_route_by_validation",
+      "models_mixed_dc",
+      "models_mixed_dc_main",
+      "models_mixed_dc_mixed_predict",
+      "models_mixed_dc_predict_d_row",
+      "models_mixed_dc_rationale_1",
+      "models_mixed_dc_rationale_33",
+      "models_mixed_dc_rationale_39",
+      "models_mixed_dc_route_by_validation",
+      "models_model_ab_compute_entity_scale_ppml",
+      "models_model_ab_fit_model_c_ppml",
+      "models_model_ab_oos_r2",
+      "models_model_ab_ppml_neg_concentrated_ll",
+      "models_model_ab_predict_ppml",
+      "models_model_ab_rationale_204",
+      "models_model_ab_rationale_227",
+      "models_model_ab_rationale_324",
+      "models_model_ab_rationale_334",
+      "models_model_ab_rationale_346"
+    ],
+    "2": [
+      "code_results_model_ensemble_results",
+      "code_results_model_ensemble_results_country",
+      "code_results_model_gbm_results",
+      "code_results_model_lstm_results",
+      "code_results_model_results",
+      "code_results_model_results_country",
+      "models_two_model_cheatsheet",
+      "models_two_model_spec",
+      "models_two_model_spec_arellano_bond_gmm",
+      "models_two_model_spec_bracket_check",
+      "models_two_model_spec_country_grain",
+      "models_two_model_spec_hansen_test",
+      "models_two_model_spec_mase",
+      "models_two_model_spec_model_a",
+      "models_two_model_spec_model_b",
+      "models_two_model_spec_model_c",
+      "models_two_model_spec_model_d",
+      "models_two_model_spec_nickell_bias",
+      "project_status",
+      "track_forecast_models_model_e",
+      "track_forecast_models_model_f_gmm_xgb",
+      "track_forecast_models_model_f_lstm",
+      "track_forecast_models_model_g"
+    ],
+    "3": [
+      "code",
+      "code_apply_quality_filters",
+      "code_clean_product_key",
+      "code_enrich",
+      "code_job_country_market_intel",
+      "code_job_exporter_directory",
+      "code_job_market_opportunities",
+      "code_job_price_trends_monthly",
+      "code_job_product_analytics",
+      "code_job_regional_analytics",
+      "code_load_data",
+      "code_load_drug_name_pattern",
+      "code_py_dataframe",
+      "code_py_series",
+      "code_rationale_1",
+      "code_rationale_175",
+      "code_rationale_199",
+      "code_rationale_25",
+      "code_rationale_365",
+      "code_run_etl",
+      "code_split_by_drug_substance",
+      "code_top_n_counts"
+    ],
+    "4": [
+      "backtesting_run_backtest",
+      "backtesting_run_backtest_apply_color_scale",
+      "backtesting_run_backtest_canonical_name",
+      "backtesting_run_backtest_main",
+      "backtesting_run_backtest_model_sort_key",
+      "backtesting_run_backtest_parse_rows",
+      "backtesting_run_backtest_pivot_metric",
+      "backtesting_run_backtest_rationale_1",
+      "backtesting_run_backtest_rationale_157",
+      "backtesting_run_backtest_rationale_175",
+      "backtesting_run_backtest_rationale_192",
+      "backtesting_run_backtest_run_and_capture",
+      "backtesting_run_backtest_stability_summary",
+      "backtesting_run_backtest_write_workbook",
+      "backtesting_write_log",
+      "backtesting_write_log_rationale_1"
+    ],
+    "5": [
+      "code_results_pipeline_run_log_country_market_intel",
+      "code_results_pipeline_run_log_exporter_directory",
+      "code_results_pipeline_run_log_market_opportunities",
+      "code_results_pipeline_run_log_price_trends_monthly",
+      "code_results_pipeline_run_log_product_analytics",
+      "code_results_pipeline_run_log_regional_analytics",
+      "etl_pipeline_country_market_intel",
+      "etl_pipeline_exporter_directory",
+      "etl_pipeline_market_opportunities",
+      "etl_pipeline_normalizecountry",
+      "etl_pipeline_price_trends_monthly",
+      "etl_pipeline_product_analytics",
+      "etl_pipeline_qualityfilters",
+      "etl_pipeline_regional_analytics"
+    ],
+    "6": [
+      "_claude_claude_graphify_section",
+      "_claude_skills_graphify_references_add_watch_guide",
+      "_claude_skills_graphify_references_exports_guide",
+      "_claude_skills_graphify_references_extraction_spec_guide",
+      "_claude_skills_graphify_references_github_and_merge_guide",
+      "_claude_skills_graphify_references_hooks_guide",
+      "_claude_skills_graphify_references_query_guide",
+      "_claude_skills_graphify_references_transcribe_guide",
+      "_claude_skills_graphify_references_update_guide",
+      "_claude_skills_graphify_skill_pipeline",
+      "claude_graphify_section"
+    ],
+    "7": [
+      "models_combine_comparisons",
+      "models_combine_comparisons_load_base",
+      "models_combine_comparisons_main",
+      "models_combine_comparisons_metric_map",
+      "models_combine_comparisons_rationale_1",
+      "models_combine_comparisons_rationale_126",
+      "models_combine_comparisons_rationale_38",
+      "models_combine_comparisons_rationale_58",
+      "models_combine_comparisons_rationale_74",
+      "models_combine_comparisons_record_comparison",
+      "models_combine_comparisons_test_t"
+    ],
+    "8": [
+      "panel_build",
+      "panel_build_build_panel",
+      "panel_build_build_panel_country",
+      "panel_build_main",
+      "panel_build_month_order",
+      "panel_build_py_dataframe",
+      "panel_build_py_series",
+      "panel_build_rationale_1",
+      "panel_build_rationale_23",
+      "panel_build_rationale_97",
+      "panel_build_top5_exporter_set"
+    ],
+    "9": [
+      "code_results_mixed_ac_results_mixed_ac_routing",
+      "code_results_mixed_ac_results_model_a_ar1",
+      "code_results_mixed_ac_results_model_c_ppml",
+      "code_results_mixed_ac_results_model_d_abgmm",
+      "code_results_mixed_ac_results_results_doc",
+      "code_results_mixed_dc_results_mixed_dc_routing",
+      "code_results_mixed_dc_results_results_doc"
+    ],
+    "10": [
+      "code_results_pipeline_run_log",
+      "etl_pipeline",
+      "track_forecast_models_data_pipeline"
+    ],
+    "11": [
+      "merge_datasets",
+      "merge_datasets_main",
+      "merge_datasets_rationale_1"
+    ],
+    "12": [
+      "split_by_drug_substance",
+      "split_by_drug_substance_main",
+      "split_by_drug_substance_rationale_1"
+    ],
+    "13": [
+      "monthly_transactions_bar",
+      "monthly_transactions_bar_rationale_1"
+    ],
+    "14": [
+      "track_forecast_models"
+    ]
+  },
+  "cohesion": {
+    "0": 0.12303422756706753,
+    "1": 0.15384615384615385,
+    "2": 0.13438735177865613,
+    "3": 0.18614718614718614,
+    "4": 0.20833333333333334,
+    "5": 0.14285714285714285,
+    "6": 0.2,
+    "7": 0.2545454545454545,
+    "8": 0.32727272727272727,
+    "9": 0.5714285714285714,
+    "10": 0.6666666666666666,
+    "11": 0.6666666666666666,
+    "12": 0.6666666666666666,
+    "13": 1.0,
+    "14": 1.0
+  },
+  "gods": [
+    {
+      "id": "models_model_ab_train_window",
+      "label": "_train_window()",
+      "degree": 22
+    },
+    {
+      "id": "models_model_ab_main",
+      "label": "main()",
+      "degree": 20
+    },
+    {
+      "id": "models_mixed_ac_main",
+      "label": "main()",
+      "degree": 16
+    },
+    {
+      "id": "models_model_ab_compute_entity_effects",
+      "label": "compute_entity_effects()",
+      "degree": 15
+    },
+    {
+      "id": "models_model_ab_fit_model_d_ab_gmm",
+      "label": "fit_model_d_ab_gmm()",
+      "degree": 15
+    },
+    {
+      "id": "models_model_ab_score_counts",
+      "label": "score_counts()",
+      "degree": 15
+    },
+    {
+      "id": "models_mixed_dc_main",
+      "label": "main()",
+      "degree": 15
+    },
+    {
+      "id": "models_model_ab_load_panel",
+      "label": "load_panel()",
+      "degree": 14
+    },
+    {
+      "id": "models_model_ab_split_substances",
+      "label": "split_substances()",
+      "degree": 14
+    },
+    {
+      "id": "models_model_ab_oos_r2",
+      "label": "oos_r2()",
+      "degree": 14
+    }
+  ],
+  "surprises": [
+    {
+      "source": "country_market_intel (Code.py job output)",
+      "target": "country_market_intel (Mongo aggregation collection)",
+      "source_files": [
+        "Code results/pipeline_run_log.txt",
+        "etl-pipeline.html"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "exporter_directory (Code.py job output)",
+      "target": "exporter_directory (Mongo aggregation collection)",
+      "source_files": [
+        "Code results/pipeline_run_log.txt",
+        "etl-pipeline.html"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "market_opportunities (Code.py job output)",
+      "target": "market_opportunities (Mongo aggregation collection)",
+      "source_files": [
+        "Code results/pipeline_run_log.txt",
+        "etl-pipeline.html"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "price_trends_monthly (Code.py job output)",
+      "target": "price_trends_monthly (Mongo aggregation collection)",
+      "source_files": [
+        "Code results/pipeline_run_log.txt",
+        "etl-pipeline.html"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    },
+    {
+      "source": "product_analytics (Code.py job output)",
+      "target": "product_analytics (Mongo aggregation collection)",
+      "source_files": [
+        "Code results/pipeline_run_log.txt",
+        "etl-pipeline.html"
+      ],
+      "confidence": "INFERRED",
+      "relation": "semantically_similar_to",
+      "why": "inferred connection - not explicitly stated in source; connects across different repos/directories; semantically similar concepts with no structural link"
+    }
+  ],
+  "questions": [
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `Excel → MongoDB → Dashboard Data Pipeline` and `PharmInt ETL Pipeline Reference Page`?",
+      "why": "Edge tagged AMBIGUOUS (relation: references) - confidence is low."
+    },
+    {
+      "type": "ambiguous_edge",
+      "question": "What is the exact relationship between `Two-Model Working Spec` and `Project Status`?",
+      "why": "Edge tagged AMBIGUOUS (relation: references) - confidence is low."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `_train_window()` connect `Forecast Models (A/B/D, Ensemble, GBM, LSTM)` to `Mixed Model Routing (PPML/AR1/AB-GMM)`?",
+      "why": "High betweenness centrality (0.020) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `record_comparison()` connect `Model Comparison Aggregator` to `Forecast Models (A/B/D, Ensemble, GBM, LSTM)`, `Mixed Model Routing (PPML/AR1/AB-GMM)`?",
+      "why": "High betweenness centrality (0.018) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `predict_ppml()` connect `Mixed Model Routing (PPML/AR1/AB-GMM)` to `Forecast Models (A/B/D, Ensemble, GBM, LSTM)`?",
+      "why": "High betweenness centrality (0.011) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `Pipeline Run Log`, `PharmInt ETL Pipeline Reference Page`, `PharmInt Forecast Models Reference Page` to the rest of the system?",
+      "why": "21 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Forecast Models (A/B/D, Ensemble, GBM, LSTM)` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.12303422756706753 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

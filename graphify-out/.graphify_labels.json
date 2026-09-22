@@ -1,1 +1,19 @@
-{"0": "Forecast Models (A/B/D, Ensemble, GBM, LSTM)", "1": "Mixed Model Routing (PPML/AR1/AB-GMM)", "2": "Two-Model Spec & Results Docs", "3": "ETL Job Pipeline (Code.py)", "4": "Backtesting & Stability Reports", "5": "ETL Pipeline Reference & Run Log", "6": "Graphify Skill Documentation", "7": "Model Comparison Aggregator", "8": "Panel Data Builder", "9": "Mixed Model Results Docs", "10": "Data Pipeline Overview", "11": "Dataset Merge Script", "12": "Drug Substance Splitter", "13": "Monthly Transactions Chart", "14": "Forecast Models Tracker Page"}
+{
+  "0": "model_ab.py",
+  "1": "mixed_ac.py",
+  "2": "Model D — Arellano–Bond Difference GMM, Corrected",
+  "3": "Code.py",
+  "4": "Backtesting & Stability Reports",
+  "5": "ETL Pipeline Reference & Run Log",
+  "6": "Graphify Skill Documentation",
+  "7": "model_seasonal.py",
+  "8": "LSTMRegressor",
+  "9": "Mixed Model Results Docs",
+  "10": "Pipeline Run Log",
+  "11": "Dataset Merge Script",
+  "12": "Drug Substance Splitter",
+  "13": "Monthly Transactions Chart",
+  "14": "Model Ensemble Results (Drug Grain)",
+  "15": "Model Ensemble Results (Country Grain)",
+  "16": "PharmInt ETL Pipeline Reference Page"
+}

@@ -241,13 +241,13 @@ covariates take their `t=8` values under the same transforms used in training.
 plus average trend). Naïve is genuinely hard to beat on count data; confirmed, not
 assumed.
 
-**Primary metric — MASE**, mean absolute error divided by naïve MAE. Below 1.0 beats
+**Primary metric — RMSE, on both scales:** log (what the model fits) and count (what
+decisions use). Lower is better. These can disagree, and the disagreement is
+informative about retransformation bias.
+
+**Secondary — MASE**, mean absolute error divided by naïve MAE. Below 1.0 beats
 doing nothing. The denominator is built from ~7 numbers and is noisy: 0.85 vs 0.92
 is not a real gap.
-
-**Secondary — RMSE on both scales:** log (what the model fits) and count (what
-decisions use). These can disagree, and the disagreement is informative about
-retransformation bias.
 
 **Reported separately:** by substance-size decile, and train-substances against
 holdout-substances.

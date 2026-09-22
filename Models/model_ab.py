@@ -888,7 +888,7 @@ def main():
          "THE COMPARABLE ONE: same rows, same target, same scale, 1 - SSE/SST. Use this to rank, not the in-sample R2 above. "
          "But do NOT read 0.98 as '98% accurate' -- SST is dominated by BETWEEN-substance variance (sizes run 0 to 1663), so almost all of it "
          "is the substance effect alpha_d capturing that PARACETAMOL is large and a niche API is small. Naive persistence scores similarly high. "
-         "MASE stays the primary metric because it divides that level information out"),
+         "RMSE stays the primary metric; MASE is tracked secondarily because it divides that level information out"),
         (f"validation MASE, t={VAL_T}, train-subs", val_a1_train["mase"], val_a2_train["mase"], val_b_train["mase"], val_c_train["mase"], val_d_train["mase"], "lower = better"),
         (f"validation MASE, t={VAL_T}, holdout-subs", val_a1_hold["mase"], val_a2_hold["mase"], val_b_hold["mase"], val_c_hold["mase"], val_d_hold["mase"], "lower = better"),
         (f"test MASE, t={TEST_T}, all substances", score_a1_test["mase"], score_a2_test["mase"], score_b_test2["mase"], score_c_test2["mase"], score_d_test2["mase"],

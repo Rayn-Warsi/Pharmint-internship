@@ -183,8 +183,8 @@ def _stability_summary(df):
             row[f"{metric} CV %"] = 100 * vals.std() / vals.mean() if len(vals) > 1 and vals.mean() else None
         rows.append(row)
     out = pd.DataFrame(rows)
-    if "MASE CV %" in out.columns:
-        out = out.sort_values("MASE CV %", na_position="last")
+    if "RMSE (count scale) CV %" in out.columns:
+        out = out.sort_values("RMSE (count scale) CV %", na_position="last")
     return out
 
 

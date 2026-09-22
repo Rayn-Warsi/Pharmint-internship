@@ -95,7 +95,8 @@ Beat both or don't deploy:
 - **Naïve** — next month = this month
 - **Drift** — naïve + average trend
 
-Metric: **MASE**. Below 1 beats naïve. Score h=1 and h=2 separately.
+Metric: **RMSE** (count scale). Lower is better. Score h=1 and h=2 separately.
+MASE tracked as a secondary metric — below 1 beats naïve.
 
 No MAPE — breaks at zero, biased toward under-forecasting.
 
